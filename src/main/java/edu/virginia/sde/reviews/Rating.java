@@ -1,13 +1,23 @@
 package edu.virginia.sde.reviews;
 
+import java.sql.Timestamp;
+
 public class Rating {
 
-    public String commentText;
-    public int ratingNumber;
+    private String commentText;
+    private int ratingNumber;
+    private Timestamp timestamp;
 
     public Rating(String commentText, int ratingNumber) {
         this.commentText = commentText;
         this.ratingNumber = ratingNumber;
+    }
+    public Timestamp getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(Timestamp timestamp) {
+        this.timestamp = timestamp;
     }
 
     public String getCommentText() {
