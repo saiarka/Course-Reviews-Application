@@ -1,7 +1,6 @@
 package edu.virginia.sde.reviews;
 
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
@@ -23,12 +22,7 @@ public class CourseReviewsApplication extends Application {
         }
     }
 
-    private Scene createScene(String fxmlFilename) throws Exception {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(fxmlFilename));
-        return new Scene(fxmlLoader.load());
-    }
-
-    private void cleanUpDatabase() {
+    private void closeDatabase() {
         DatabaseDriver databaseDriver = DatabaseDriver.getInstance();
         try {
             databaseDriver.disconnect();
@@ -43,16 +37,15 @@ public class CourseReviewsApplication extends Application {
         // Initial settings.
         initializeDatabase();
         stage.setTitle("Course Reviews");
-        stage.show();
-        // Login and sign up scene.
-        Scene loginSignupScene = createScene("login-signup.fxml");
-        stage.setScene(loginSignupScene);
-        // TODO: other scenes.
+        SceneSwitcher.setStageInitially(stage);
+        SceneCreator sceneCreator = new SceneCreator();
+        Scene loginSignupScene = sceneCreator.createScene("login-signup.fxml");
+        SceneSwitcher.setScene(loginSignupScene);
     }
 
     @Override
     public void stop() throws Exception {
-        cleanUpDatabase();
+        closeDatabase();
         // TODO: anything else?
     }
 }
