@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<!-- Main screen for looking at all courses: uses course-review-item.fxml as reusable template for data  -->
+<!-- TODO:
+    *MyReviews Button
+    *Search
+        - By mnemonic, number, title
+        - case-insensitive
+        - 3 seperate search fields (Subject, Number, Title) & search button
+            - Look for substrings for title
+            - Exact match for subject and number
+        - Add course functionality
+            - The user should be able to enter a subject mnemonic, course number, and course title
+            - Subject mnemonic is 2-4 letters (inclusive, so nothing that is 1 letter, nothing 5 or more, no numbers/symbols) - you should not require the letters be capitalized, but when storing in the database, you should store the letters as capitalized
+                The number should be exactly 4 digits (no letters/symbols)
+                The title can include any letters, numbers, and symbols, and must be at least 1 character long, and at most 50 characters long
+                If the user attempts to "add" invalid data, an appropriate message should be shown in-app to inform the user that their data format is incorrect.
+                Once the user adds the course, the course should be visible in the list of courses.
+     *Log out button
+  -->
+<AnchorPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="edu.virginia.sde.reviews.CoursesMainSceneController" prefHeight="720.0" prefWidth="1280.0">
+    <children>
+       <HBox prefHeight="60.0" prefWidth="1280.0">
+          <children>
+              <!-- TODO: Finish functions for log out and my reviews -->
+            <Button text = "Log Out" onAction="#handleLogOutButton"></Button>
+            <Button text = "My Reviews" onAction="#handleMyReviewsButton"></Button>
+          </children>
+       </HBox>
+        <HBox prefHeight="40.0" prefWidth="1280.0">
+            <!-- TODO: Finish controller setup for these search text fields -->
+           <TextField promptText="Subject..." fx:id="courseMnemonicTextField"></TextField>
+            <TextField promptText="Course Number..." fx:id="courseNumberTextField"></TextField>
+            <TextField promptText="Course Title..." fx:id="courseTitleTextField"></TextField>
+        </HBox>
+        <HBox prefHeight="620.0" prefWidth="1280.0">
+
+
+        </HBox>
+    </children>
+</AnchorPane>
