@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.virginia.sde.reviews.ReviewSceneController">
+
+    <!-- Course Details Section -->
+    <VBox layoutX="50" layoutY="50" spacing="10">
+        <Label text="Course Details" />
+        <HBox spacing="10">
+            <Label text="Mnemonic:" />
+            <Label fx:id="mnemonicLabel" />
+        </HBox>
+        <HBox spacing="10">
+            <Label text="Number:" />
+            <Label fx:id="numberLabel" />
+        </HBox>
+        <HBox spacing="10">
+            <Label text="Title:" />
+            <Label fx:id="titleLabel" />
+        </HBox>
+        <HBox spacing="10">
+            <Label text="Average Rating:" />
+            <Label fx:id="averageRatingLabel" />
+        </HBox>
+    </VBox>
+
+    <!-- Reviews Section -->
+    <VBox layoutX="50" layoutY="200" prefHeight="138.0" prefWidth="248.0" spacing="10">
+        <Label text="Reviews" />
+        <ListView fx:id="reviewsListView" prefHeight="0.0" prefWidth="248.0" />
+    </VBox>
+
+    <!-- Add Review Section -->
+    <VBox layoutX="350" layoutY="50" spacing="10">
+        <Label text="Add Review" />
+        <HBox spacing="10">
+            <Label text="Rating:" />
+            <TextField fx:id="ratingTextField" promptText="Enter rating (0-5)" />
+        </HBox>
+        <HBox spacing="10">
+            <Label text="Comment:" />
+            <TextArea fx:id="commentTextArea" prefHeight="10.0" prefWidth="512.0" promptText="Add a comment" />
+        </HBox>
+        <Button onAction="#submitReview" text="Submit Review" />
+    </VBox>
+
+    <!-- Delete Review Section -->
+    <VBox layoutX="350" layoutY="200" spacing="10">
+        <Label text="Your Review" />
+        <HBox spacing="10">
+            <Label text="Your Rating:" />
+            <Label fx:id="userRatingLabel" />
+        </HBox>
+        <HBox spacing="10">
+            <Label text="Your Comment:" />
+            <Label fx:id="userCommentLabel" />
+        </HBox>
+        <Button onAction="#editReview" text="Edit Review" />
+        <Button onAction="#deleteReview" text="Delete Review" />
+    </VBox>
+
+    <!-- Back Button -->
+    <Button layoutX="50.0" layoutY="8.0" onAction="#goBack" text="Back" />
+
+</AnchorPane>
