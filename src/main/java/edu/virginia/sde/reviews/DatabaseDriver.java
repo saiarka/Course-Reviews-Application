@@ -32,12 +32,12 @@ public class DatabaseDriver {
     }
 
     public void createTablesIfNeeded() throws SQLException {
+        Statement statement = connection.createStatement();
         // Create AccountInfo table.
         String accountInfoSql = "CREATE TABLE IF NOT EXISTS AccountInfo (" +
                 "ID INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "Username TEXT NOT NULL UNIQUE, " +
                 "Password TEXT NOT NULL)";
-        Statement statement = connection.createStatement();
         statement.executeUpdate(accountInfoSql);
         // Create Course table
         String courseTableSql = "CREATE TABLE IF NOT EXISTS Courses (" +
@@ -59,7 +59,27 @@ public class DatabaseDriver {
         // TODO: other tables
     }
 
-    public void insertIntoAccountInfo(String username, String password) throws SQLException{
+    public boolean isExistingUsername(String username) throws SQLException {
+        String usernameSql = "SELECT COUNT(*) FROM AccountInfo WHERE Username = ?";
+        try (PreparedStatement statement = connection.prepareStatement(usernameSql)) {
+            statement.setString(1, username);
+            ResultSet rs = statement.executeQuery();
+            rs.next();
+            return rs.getInt(1) != 0;
+        }
+    }
+
+    public String getPasswordFromUsername(String username) throws SQLException {
+        String usernameSql = "SELECT Password FROM AccountInfo WHERE Username = ?";
+        try (PreparedStatement statement = connection.prepareStatement(usernameSql)) {
+            statement.setString(1, username);
+            ResultSet rs = statement.executeQuery();
+            rs.next();
+            return rs.getString("Password");
+        }
+    }
+
+    public void addAccount(String username, String password) throws SQLException {
         String insertSql = "INSERT INTO AccountInfo " +
                 "(Username, Password) " +
                 "VALUES (?, ?)";

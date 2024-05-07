@@ -9,8 +9,13 @@ public class SceneCreator {
         // Empty constructor on purpose.
     }
 
-    public Scene createScene(String fxmlFilename) throws Exception {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(fxmlFilename));
-        return new Scene(fxmlLoader.load());
+    public Scene createScene(String fxmlFilename) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(fxmlFilename));
+            return new Scene(fxmlLoader.load());
+        }
+        catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 }
