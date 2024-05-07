@@ -33,8 +33,7 @@ public class LoginSignupController {
             String password = loginPasswordField.getText();
             if (service.isCorrectPassword(username, password)) {
                 SceneCreator sceneCreator = new SceneCreator();
-                // TODO: change FXML from hello-world.fxml placeholder to the course search scene FXML.
-                Scene nextScene = sceneCreator.createScene("hello-world.fxml");
+                Scene nextScene = sceneCreator.createScene("course-search-scene.fxml");
                 SceneSwitcher.setScene(nextScene);
             }
             else {

@@ -8,7 +8,6 @@
 
 <!-- Main screen for looking at all courses: uses course-review-item.fxml as reusable template for data  -->
 <!-- TODO:
-    *MyReviews Button
     *Search
         - By mnemonic, number, title
         - case-insensitive
@@ -22,7 +21,6 @@
                 The title can include any letters, numbers, and symbols, and must be at least 1 character long, and at most 50 characters long
                 If the user attempts to "add" invalid data, an appropriate message should be shown in-app to inform the user that their data format is incorrect.
                 Once the user adds the course, the course should be visible in the list of courses.
-     *Log out button
   -->
 <AnchorPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="edu.virginia.sde.reviews.CoursesMainSceneController" prefHeight="720.0" prefWidth="1280.0">
     <children>
@@ -40,8 +38,9 @@
             <TextField promptText="Course Title..." fx:id="courseTitleTextField"></TextField>
         </HBox>
         <HBox prefHeight="620.0" prefWidth="1280.0">
+           <VBox fx:id="coursesContainer">
 
-
+           </VBox>
         </HBox>
     </children>
 </AnchorPane>
