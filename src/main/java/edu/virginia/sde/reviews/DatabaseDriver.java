@@ -1,6 +1,8 @@
 package edu.virginia.sde.reviews;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DatabaseDriver {
 
@@ -92,5 +94,19 @@ public class DatabaseDriver {
             rollback();
             throw e;
         }
+    }
+
+    //Method for retrieving list of courses from database
+    public List<Course> retrieveAllCoursesFromDatabase() throws SQLException {
+        List<Course> courseList = new ArrayList<>();
+        String retrieveSql = "SELECT * FROM Courses ORDER BY CourseMnemonic ASC";
+        Statement retrievalStatement = connection.createStatement();
+        ResultSet rs = retrievalStatement.executeQuery(retrieveSql);
+
+        while(rs.next()) {
+            //TODO: Implement this retrieval set so that it creates a list of courses that can be returned
+        }
+
+        return courseList;
     }
 }
