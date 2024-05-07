@@ -30,16 +30,7 @@ public class LoginSignupController {
         loginErrorLabel.setText("Not yet implemented...");
     }
 
-    // TODO: implement fully (not complete right now).
+    // TODO: implement.
     public void handleSignupButton() {
-        DatabaseDriver databaseDriver = DatabaseDriver.getInstance();
-        try {
-            databaseDriver.insertIntoAccountInfo(signupUsernameField.getText(), signupPasswordField.getText());
-            databaseDriver.commit();
-            signupErrorLabel.setText("Account created. Please log in now.");
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 }

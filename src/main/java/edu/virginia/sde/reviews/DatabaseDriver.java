@@ -2,21 +2,12 @@ package edu.virginia.sde.reviews;
 
 import java.sql.*;
 
-// Implemented with a singleton design pattern.
 public class DatabaseDriver {
 
-    private static DatabaseDriver instance;
     private Connection connection;
 
-    private DatabaseDriver() {
+    public DatabaseDriver() {
         // Empty constructor on purpose.
-    }
-
-    public static DatabaseDriver getInstance() {
-        if (instance == null) {
-            instance = new DatabaseDriver();
-        }
-        return instance;
     }
 
     public void connect() throws SQLException {
