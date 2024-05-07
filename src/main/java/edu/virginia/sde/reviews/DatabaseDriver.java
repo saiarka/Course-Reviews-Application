@@ -48,7 +48,24 @@ public class DatabaseDriver {
                 "Password TEXT NOT NULL)";
         Statement statement = connection.createStatement();
         statement.executeUpdate(accountInfoSql);
-        // TODO: other tables.
+        // Create Course table
+        String courseTableSql = "CREATE TABLE IF NOT EXISTS Courses (" +
+                "ID INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "CourseMnemonic TEXT NOT NULL, " +
+                "CourseName TEXT NOT NULL UNIQUE, " +
+                "CourseNumber INTEGER NOT NULL , " +
+                "AverageCourseRating FLOAT NOT NULL)";
+        statement.executeUpdate(courseTableSql);
+        // Create Ratings table
+        String ratingTableSql = "CREATE TABLE IF NOT EXITS Ratings (" +
+                "ID INTEGER PRIMARY KEY AUTOINCREMENT" +
+                "Rating INTEGER NOT NULL, " +
+                "TimeStamp TIMESTAMP NOT NULL, " +
+                "Comment TEXT, "  +
+                "UserID INTEGER NOT NULL UNIQUE, " +
+                "FOREIGN KEY (UserID) REFERENCES AccountInfo(ID))";
+        statement.executeUpdate(ratingTableSql);
+        // TODO: other tables
     }
 
     public void insertIntoAccountInfo(String username, String password) throws SQLException{
