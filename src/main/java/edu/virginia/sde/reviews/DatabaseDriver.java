@@ -53,15 +53,15 @@ public class DatabaseDriver {
                 "ID INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "CourseMnemonic TEXT NOT NULL, " +
                 "CourseName TEXT NOT NULL UNIQUE, " +
-                "CourseNumber INTEGER NOT NULL , " +
+                "CourseNumber INTEGER NOT NULL, " +
                 "AverageCourseRating FLOAT NOT NULL)";
         statement.executeUpdate(courseTableSql);
         // Create Ratings table
-        String ratingTableSql = "CREATE TABLE IF NOT EXITS Ratings (" +
-                "ID INTEGER PRIMARY KEY AUTOINCREMENT" +
+        String ratingTableSql = "CREATE TABLE IF NOT EXISTS Ratings (" +
+                "ID INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "Rating INTEGER NOT NULL, " +
                 "TimeStamp TIMESTAMP NOT NULL, " +
-                "Comment TEXT, "  +
+                "Comment TEXT, " +
                 "UserID INTEGER NOT NULL UNIQUE, " +
                 "FOREIGN KEY (UserID) REFERENCES AccountInfo(ID))";
         statement.executeUpdate(ratingTableSql);
