@@ -56,6 +56,7 @@ public class DatabaseDriver {
                 "TimeStamp TIMESTAMP NOT NULL, " +
                 "Comment TEXT, " +
                 "UserID INTEGER NOT NULL UNIQUE, " +
+
                 "FOREIGN KEY (UserID) REFERENCES AccountInfo(ID))";
         statement.executeUpdate(ratingTableSql);
         // TODO: other tables
@@ -109,4 +110,86 @@ public class DatabaseDriver {
 
         return courseList;
     }
+
+    public Course getCourseDetails(int courseId) throws SQLException {
+        String retrieveSql = "SELECT * FROM Courses WHERE ID = ?";
+        try (PreparedStatement statement = connection.prepareStatement(retrieveSql)) {
+            statement.setInt(1, courseId);
+            ResultSet rs = statement.executeQuery();
+            if (rs.next()) {
+                int courseNumber = rs.getInt("CourseNumber");
+                String courseName = rs.getString("CourseName");
+                String courseMnemonic = rs.getString("CourseMnemonic");
+                double avgRating = rs.getDouble("AverageCourseRating");
+
+                // Assuming you have a method to retrieve ratings for this course ID
+                List<Rating> ratingList = retrieveAllRatingsForCourse(courseId);
+
+                return new Course(courseNumber, courseName, courseMnemonic, avgRating, ratingList);
+            }
+        }
+        return null; // Course not found
+    }
+
+
+    public List<Rating> retrieveAllRatingsForCourse(int courseId) throws SQLException {
+        List<Rating> ratingList = new ArrayList<>();
+        String retrieveSql = "SELECT * FROM Reviews WHERE CourseID = ?";
+        try (PreparedStatement statement = connection.prepareStatement(retrieveSql)) {
+            statement.setInt(1, courseId);
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+                Rating rating = new Rating(rs.getString("Comment"), rs.getInt("Rating"));
+                rating.setTimestamp(rs.getTimestamp("TimeStamp"));
+                ratingList.add(rating);
+            }
+        }
+        return ratingList;
+    }
+
+    public void addReview(int courseId, int userId, Rating rating) throws SQLException {
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        String insertSql = "INSERT INTO Reviews " +
+                "(CourseID, UserID, Rating, TimeStamp, Comment) " +
+                "VALUES (?, ?, ?, ?, ?)";
+        try (PreparedStatement statement = connection.prepareStatement(insertSql)) {
+            statement.setInt(1, courseId);
+            statement.setInt(2, userId);
+            statement.setInt(3, rating.getRatingNumber());
+            statement.setTimestamp(4, timestamp);
+            statement.setString(5, rating.getCommentText());
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            rollback();
+            throw e;
+        }
+    }
+
+
+    public void deleteReview(int reviewId) throws SQLException {
+        String deleteSql = "DELETE FROM Reviews WHERE ID = ?";
+        try (PreparedStatement statement = connection.prepareStatement(deleteSql)) {
+            statement.setInt(1, reviewId);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            rollback();
+            throw e;
+        }
+    }
+
+    public void updateReview(int reviewId, Rating updatedRating) throws SQLException {
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        String updateSql = "UPDATE Reviews SET Rating = ?, TimeStamp = ?, Comment = ? WHERE ID = ?";
+        try (PreparedStatement statement = connection.prepareStatement(updateSql)) {
+            statement.setInt(1, updatedRating.getRatingNumber());
+            statement.setTimestamp(2, timestamp);
+            statement.setString(3, updatedRating.getCommentText());
+            statement.setInt(4, reviewId);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            rollback();
+            throw e;
+        }
+    }
+
 }
