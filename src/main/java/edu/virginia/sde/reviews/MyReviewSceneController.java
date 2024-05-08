@@ -7,6 +7,7 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Separator;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -52,7 +53,11 @@ public class MyReviewSceneController {
         Label summaryLabel = new Label("Summary: " + reviewText.substring(reviewText.indexOf(":") + 1).trim());
 
 
-        reviewContainer.getChildren().addAll(courseLabel, ratingLabel, summaryLabel);
+        //makes it easier to read and separate many reviews hopefully
+        Separator separator = new Separator();
+
+
+        reviewContainer.getChildren().addAll(courseLabel, ratingLabel, summaryLabel, separator);
 
 
         courseLabel.setStyle("-fx-font-weight: bold;");
