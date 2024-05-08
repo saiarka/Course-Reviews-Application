@@ -35,9 +35,12 @@ public class ReviewSceneController {
     @FXML
     private TextField ratingTextField;
 
+    @FXML
+    private Label errorLabel;
+
     private DatabaseDriver databaseDriver= new DatabaseDriver();
 
-    private int courseId;
+    private static int courseId;
 
 public void setcourseID(int ID){
     courseId=ID;
@@ -128,6 +131,8 @@ public void setcourseID(int ID){
             int userreviewID= databaseDriver.getUserReviewID(courseId, username);
             if(userreviewID!=-1) {
                 databaseDriver.updateReview(userreviewID,updatedrate );
+            }else{
+                showError("You have not left a review to edit!");
             }
             databaseDriver.disconnect();
 
@@ -152,6 +157,8 @@ public void setcourseID(int ID){
             int userreviewID= databaseDriver.getUserReviewID(courseId, username);
             if(userreviewID!=-1) {
                 databaseDriver.deleteReview(userreviewID);
+            }else{
+                showError("You have not left a review to delete!");
             }
             databaseDriver.disconnect();
 
@@ -176,7 +183,12 @@ public void setcourseID(int ID){
             String user=UserSession.getInstance().getUsername();
             Rating newRating = new Rating( comment, rating);
             databaseDriver.connect();
-            databaseDriver.addReview(courseId,user ,newRating);
+            int alreadyreviewed= databaseDriver.getUserReviewID(courseId, user);
+            if(alreadyreviewed==-1) {
+                databaseDriver.addReview(courseId, user, newRating);
+            }else{
+                showError("You have already submitted a review for this course!");
+            }
             databaseDriver.disconnect();
 
 
@@ -201,5 +213,10 @@ public void setcourseID(int ID){
             e.printStackTrace();
             // Handle any exceptions or errors during scene switching
         }
+    }
+
+    public void showError(String errorMessage) {
+        errorLabel.setText(errorMessage);
+
     }
 }

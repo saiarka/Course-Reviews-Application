@@ -64,4 +64,7 @@
     <!-- Back Button -->
     <Button layoutX="50.0" layoutY="8.0" onAction="#goBack" text="Back" />
 
+    <!-- Error Label -->
+    <Label fx:id="errorLabel" layoutX="640.0" layoutY="14.0" prefHeight="59.0" prefWidth="248.0" textFill="red" />
+
 </AnchorPane>
