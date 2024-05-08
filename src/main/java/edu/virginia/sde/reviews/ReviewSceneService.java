@@ -11,6 +11,7 @@ Rating rating = new Rating(commentText,ratingNumber);
         DatabaseDriver databaseDriver = new DatabaseDriver();
 
         try {
+
             databaseDriver.connect();
 
             databaseDriver.updateReview(reviewID, rating);

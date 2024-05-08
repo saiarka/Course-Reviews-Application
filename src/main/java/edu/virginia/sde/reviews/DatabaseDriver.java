@@ -55,9 +55,10 @@ public class DatabaseDriver {
                 "Rating INTEGER NOT NULL, " +
                 "TimeStamp TIMESTAMP NOT NULL, " +
                 "Comment TEXT, " +
-                "UserID INTEGER NOT NULL UNIQUE, " +
-
-                "FOREIGN KEY (UserID) REFERENCES AccountInfo(ID))";
+                "UserName TEXT NOT NULL UNIQUE, " +
+                "CourseID INTEGER NOT NULL, " + // Added CourseID column
+                "FOREIGN KEY (UserName) REFERENCES AccountInfo(Username), " +
+                "FOREIGN KEY (CourseID) REFERENCES Courses(ID))"; // Added foreign ke
         statement.executeUpdate(ratingTableSql);
         // TODO: other tables
     }
@@ -147,14 +148,14 @@ public class DatabaseDriver {
         return ratingList;
     }
 
-    public void addReview(int courseId, int userId, Rating rating) throws SQLException {
+    public void addReview(int courseId, String userName, Rating rating) throws SQLException {
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         String insertSql = "INSERT INTO Reviews " +
-                "(CourseID, UserID, Rating, TimeStamp, Comment) " +
+                "(CourseID, UserName, Rating, TimeStamp, Comment) " +
                 "VALUES (?, ?, ?, ?, ?)";
         try (PreparedStatement statement = connection.prepareStatement(insertSql)) {
             statement.setInt(1, courseId);
-            statement.setInt(2, userId);
+            statement.setString(2, userName);
             statement.setInt(3, rating.getRatingNumber());
             statement.setTimestamp(4, timestamp);
             statement.setString(5, rating.getCommentText());
@@ -190,6 +191,22 @@ public class DatabaseDriver {
             rollback();
             throw e;
         }
+    }
+
+    public Rating getUserReview(int courseId, String username) throws SQLException {
+        List<Rating> reviewList = new ArrayList<>();
+        String retrieveSql = "SELECT * FROM Reviews WHERE CourseID = ? AND UserName = ?";
+        try (PreparedStatement statement = connection.prepareStatement(retrieveSql)) {
+            statement.setInt(1, courseId);
+            statement.setString(2, username);
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+                Rating rating = new Rating(rs.getString("Comment"), rs.getInt("Rating"));
+                rating.setTimestamp(rs.getTimestamp("TimeStamp"));
+                return rating;
+            }
+        }
+return null;
     }
 
 }

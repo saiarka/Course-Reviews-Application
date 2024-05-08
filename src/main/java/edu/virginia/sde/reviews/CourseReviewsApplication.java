@@ -32,7 +32,7 @@ public class CourseReviewsApplication extends Application {
         stage.setTitle("Course Reviews");
         SceneSwitcher.setStageInitially(stage);
         SceneCreator sceneCreator = new SceneCreator();
-        Scene loginSignupScene = sceneCreator.createScene("login-signup.fxml");
+        Scene loginSignupScene = sceneCreator.createScene("course-review-scene.fxml");
         SceneSwitcher.setScene(loginSignupScene);
     }
 }

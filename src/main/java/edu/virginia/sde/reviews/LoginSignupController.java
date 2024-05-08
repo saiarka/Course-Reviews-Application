@@ -32,6 +32,8 @@ public class LoginSignupController {
         else {
             String password = loginPasswordField.getText();
             if (service.isCorrectPassword(username, password)) {
+                UserSession userSession = UserSession.getInstance();
+                userSession.setUsername(username);
                 SceneCreator sceneCreator = new SceneCreator();
                 Scene nextScene = sceneCreator.createScene("course-search-scene.fxml");
                 SceneSwitcher.setScene(nextScene);
