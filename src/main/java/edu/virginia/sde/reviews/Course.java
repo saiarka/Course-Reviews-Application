@@ -16,6 +16,12 @@ public class Course {
         this.avgRating = avgRating;
         this.ratingList = ratingList;
     }
+    public Course(int coursenumber, String coursename, String coursemnemonic, double avgRating) {
+        this.coursenumber = coursenumber;
+        this.coursename = coursename;
+        this.coursemnemonic = coursemnemonic;
+        this.avgRating = avgRating;
+    }
 
     public int getCoursenumber() {
         return coursenumber;

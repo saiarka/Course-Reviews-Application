@@ -22,24 +22,39 @@
                 If the user attempts to "add" invalid data, an appropriate message should be shown in-app to inform the user that their data format is incorrect.
                 Once the user adds the course, the course should be visible in the list of courses.
   -->
-<AnchorPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="edu.virginia.sde.reviews.CoursesMainSceneController" prefHeight="720.0" prefWidth="1280.0">
+<AnchorPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="edu.virginia.sde.reviews.CoursesMainSceneController" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: dae7f3;">
     <children>
-       <HBox prefHeight="60.0" prefWidth="1280.0">
+        <!-- Log-Out and My-Reviews Button Section -->
+       <HBox prefHeight="60.0" prefWidth="1280.0" alignment="CENTER" spacing="10">
           <children>
-              <!-- TODO: Finish functions for log out and my reviews -->
             <Button text = "Log Out" onAction="#handleLogOutButton"></Button>
             <Button text = "My Reviews" onAction="#handleMyReviewsButton"></Button>
           </children>
        </HBox>
-        <HBox prefHeight="40.0" prefWidth="1280.0">
-            <!-- TODO: Finish controller setup for these search text fields -->
-           <TextField promptText="Subject..." fx:id="courseMnemonicTextField"></TextField>
-            <TextField promptText="Course Number..." fx:id="courseNumberTextField"></TextField>
-            <TextField promptText="Course Title..." fx:id="courseTitleTextField"></TextField>
-        </HBox>
-        <HBox prefHeight="620.0" prefWidth="1280.0">
-           <VBox fx:id="coursesContainer">
 
+        <!-- Search Bar -->
+        <HBox prefHeight="40.0" prefWidth="1280.0" alignment="CENTER" spacing="10" layoutY="60.0">
+            <Label text="Search Course..."></Label>
+            <TextField promptText="Course Subject" fx:id="courseMnemonicSearched"></TextField>
+            <TextField promptText="Course Number" fx:id="courseNumberSearched"></TextField>
+            <TextField promptText="Course Name" fx:id="courseTitleSearched"></TextField>
+            <Button text="Search" onAction="#handleSearch"></Button>
+            <Label fx:id="errorLabel" textFill="red"></Label>
+        </HBox>
+
+        <!-- Add Bar -->
+        <HBox prefHeight="40.0" prefWidth="1280.0" alignment="CENTER" spacing="10" layoutY="100.0">
+            <Label text="Add Course Details"></Label>
+            <TextField promptText="Course Subject" fx:id="courseMnemonic"></TextField>
+            <TextField promptText="Course Number" fx:id="courseNumber"></TextField>
+            <TextField promptText="Course Name" fx:id="courseTitle"></TextField>
+            <!-- TODO: Finish add functionality -->
+            <Button text="Add" onAction="#handleAddCourse"></Button>
+        </HBox>
+
+        <!-- Courses Displayed Section -->
+        <HBox alignment="CENTER" layoutY="140.0">
+           <VBox fx:id="coursesContainer">
            </VBox>
         </HBox>
     </children>

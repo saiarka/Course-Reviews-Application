@@ -223,4 +223,51 @@ return null;
         return -1; // Return -1 if no review ID found for the given parameters
     }
 
+    public List<Course> getSearchedCourseList(String courseMnemonic, String courseTitle, String courseNumber) throws SQLException{
+       List<Course> returnedCourseList = new ArrayList<>();
+       List<String> addedConditions = new ArrayList<>();
+        String initalQuery = "SELECT * FROM Courses WHERE ";
+
+        if(!courseMnemonic.isEmpty()){
+            addedConditions.add("CourseMnemonic = ?");
+        }
+
+        if(!courseTitle.isEmpty()){
+            addedConditions.add("CourseName LIKE ?");
+        }
+
+        if(!courseNumber.isEmpty()){
+            addedConditions.add("CourseNumber = ?");
+        }
+
+        if(!addedConditions.isEmpty()) {
+            initalQuery += String.join(" AND ", addedConditions);
+        }else {
+            initalQuery = "SELECT * FROM Courses";
+        }
+
+        try(PreparedStatement statement = connection.prepareStatement(initalQuery)) {
+
+            int parameterIndex = 1;
+            if(!courseMnemonic.isEmpty()){
+                //Not sure if uppercase is right here
+                statement.setString(parameterIndex++, courseMnemonic.toUpperCase());
+            }
+
+            if(!courseNumber.isEmpty()) {
+                statement.setString(parameterIndex++, courseNumber);
+            }
+
+            if(!courseTitle.isEmpty()){
+                statement.setString(parameterIndex, "%" + courseTitle + "%");
+            }
+
+            ResultSet rs = statement.executeQuery();
+            while(rs.next()) {
+                returnedCourseList.add(new Course(rs.getInt("CourseNumber"), rs.getString("CourseName"), rs.getString("CourseMnemonic"), rs.getDouble("AverageCourseRating")));
+            }
+        }
+      return returnedCourseList;
+    }
+
 }

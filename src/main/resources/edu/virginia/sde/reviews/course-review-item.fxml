@@ -10,9 +10,9 @@
 <!-- TODO: Not sure about structure here
        * ALSO CHANGE SIZE PARAMETERS SO THAT IT LOOKS GOOD
  -->
-<VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="edu.virginia.sde.reviews.CoursesItemController" prefHeight="50.0" prefWidth="150.0">
+<VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="edu.virginia.sde.reviews.CoursesItemController" prefHeight="50.0" prefWidth="300.0" alignment="CENTER" spacing="5">
     <children>
-    <Button>
+    <Button prefWidth="300.0" prefHeight="50.0">
             <Label fx:id = "courseMnemonic"></Label>
             <Label fx:id = "courseName"></Label>
             <Label fx:id = "courseNumber"></Label>
