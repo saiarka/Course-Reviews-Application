@@ -50,7 +50,7 @@ public class DatabaseDriver {
                 "AverageCourseRating FLOAT NOT NULL)";
         statement.executeUpdate(courseTableSql);
         // Create Ratings table
-        String ratingTableSql = "CREATE TABLE IF NOT EXISTS Ratings (" +
+        String ratingTableSql = "CREATE TABLE IF NOT EXISTS Reviews (" +
                 "ID INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "Rating INTEGER NOT NULL, " +
                 "TimeStamp TIMESTAMP NOT NULL, " +

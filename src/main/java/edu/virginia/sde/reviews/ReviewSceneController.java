@@ -102,7 +102,9 @@ public void setcourseID(int ID){
         try {
             UserSession userSession = UserSession.getInstance();
             String username=userSession.getUsername();
+            databaseDriver.connect();
             Rating userReview = databaseDriver.getUserReview(courseId, username);
+            databaseDriver.disconnect();
             if (userReview != null) {
                 // User has already submitted a review
                 userRatingLabel.setText(String.valueOf(userReview.getRatingNumber()));
