@@ -123,6 +123,23 @@ public void setcourseID(int ID){
     }
 
     public void submitReview(ActionEvent actionEvent) {
+
+        try {
+
+            int rating = Integer.parseInt(ratingTextField.getText());
+            String comment = commentTextArea.getText();
+            String user=UserSession.getInstance().getUsername();
+            Rating newRating = new Rating( comment, rating);
+            databaseDriver.connect();
+            databaseDriver.addReview(courseId,user ,newRating);
+            databaseDriver.disconnect();
+
+
+            loadReviews();
+        } catch (NumberFormatException | SQLException e) {
+            e.printStackTrace();
+
+        }
     }
 
     public void goBack(ActionEvent actionEvent) {
