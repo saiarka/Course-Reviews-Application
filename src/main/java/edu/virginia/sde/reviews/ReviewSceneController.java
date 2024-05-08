@@ -5,6 +5,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import java.sql.SQLException;
 import java.util.List;
@@ -116,16 +117,60 @@ public void setcourseID(int ID){
         }
     }
     public void editReview(ActionEvent actionEvent) {
+        try {
+            UserSession userSession = UserSession.getInstance();
+            String username = userSession.getUsername();
+            String ratingText = ratingTextField.getText();
+            int rating= Integer.parseInt(ratingText);
+            Rating updatedrate= new Rating(commentTextArea.getText(),rating );
+            databaseDriver.connect();
 
+            int userreviewID= databaseDriver.getUserReviewID(courseId, username);
+            if(userreviewID!=-1) {
+                databaseDriver.updateReview(userreviewID,updatedrate );
+            }
+            databaseDriver.disconnect();
+
+            // Clear the user review labels or reset them to default values
+            userRatingLabel.setText("");
+            userCommentLabel.setText("");
+            // Reload reviews after deletion
+            loadReviews();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Handle database error
+        }
     }
 
     public void deleteReview(ActionEvent actionEvent) {
+        try {
+            UserSession userSession = UserSession.getInstance();
+            String username = userSession.getUsername();
+            databaseDriver.connect();
+
+            int userreviewID= databaseDriver.getUserReviewID(courseId, username);
+            if(userreviewID!=-1) {
+                databaseDriver.deleteReview(userreviewID);
+            }
+            databaseDriver.disconnect();
+
+                // Clear the user review labels or reset them to default values
+                userRatingLabel.setText("");
+                userCommentLabel.setText("");
+                // Reload reviews after deletion
+                loadReviews();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Handle database error
+        }
     }
 
     public void submitReview(ActionEvent actionEvent) {
 
         try {
-
+            setcourseID(3);
             int rating = Integer.parseInt(ratingTextField.getText());
             String comment = commentTextArea.getText();
             String user=UserSession.getInstance().getUsername();
@@ -143,5 +188,18 @@ public void setcourseID(int ID){
     }
 
     public void goBack(ActionEvent actionEvent) {
+        try {
+            // Create a new SceneCreator instance
+            SceneCreator sceneCreator = new SceneCreator();
+
+            // Get the login/signup scene
+            Scene loginSignupScene = sceneCreator.createScene("login-signup.fxml");
+
+            // Set the scene using SceneSwitcher
+            SceneSwitcher.setScene(loginSignupScene);
+        } catch (Exception e) {
+            e.printStackTrace();
+            // Handle any exceptions or errors during scene switching
+        }
     }
 }

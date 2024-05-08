@@ -209,4 +209,18 @@ public class DatabaseDriver {
 return null;
     }
 
+
+    public int getUserReviewID(int courseId, String username) throws SQLException {
+        String retrieveSql = "SELECT ID FROM Reviews WHERE CourseID = ? AND UserName = ?";
+        try (PreparedStatement statement = connection.prepareStatement(retrieveSql)) {
+            statement.setInt(1, courseId);
+            statement.setString(2, username);
+            ResultSet rs = statement.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("ID");
+            }
+        }
+        return -1; // Return -1 if no review ID found for the given parameters
+    }
+
 }

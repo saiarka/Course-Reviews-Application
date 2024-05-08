@@ -35,7 +35,7 @@ public class LoginSignupController {
                 UserSession userSession = UserSession.getInstance();
                 userSession.setUsername(username);
                 SceneCreator sceneCreator = new SceneCreator();
-                Scene nextScene = sceneCreator.createScene("course-search-scene.fxml");
+                Scene nextScene = sceneCreator.createScene("course-review-scene.fxml");
                 SceneSwitcher.setScene(nextScene);
             }
             else {
