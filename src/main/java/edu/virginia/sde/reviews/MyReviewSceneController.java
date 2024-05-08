@@ -6,6 +6,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -13,16 +15,16 @@ import java.io.IOException;
 public class MyReviewSceneController {
 
     @FXML
-    private Button backButton; // Assuming your back button has an fx:id of "backButton"
+    private Button backButton;
+    @FXML
+    private VBox reviewContainer;
 
-    // Method to handle the "go back" action
+
     @FXML
     private void goBack(ActionEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("course-search-scene.fxml"));
             Scene nextScene = new Scene(loader.load());
-
-            // Get the stage from any node in the scene (here, we use the back button)
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
             stage.setScene(nextScene);
@@ -30,5 +32,20 @@ public class MyReviewSceneController {
             e.printStackTrace();
 
         }
+    }
+
+    @FXML
+    private void addReview(String reviewText) {
+        Label reviewLabel = new Label(reviewText);
+        reviewContainer.getChildren().add(reviewLabel);
+    }
+
+
+    @FXML
+    public void initialize() {
+        //fake place holder
+        addReview("This is review 1");
+        addReview("This is review 2");
+        addReview("This is review 3");
     }
 }

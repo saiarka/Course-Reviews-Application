@@ -18,7 +18,7 @@
         </Button>
         <ScrollPane layoutX="240.0" layoutY="120.0" prefHeight="550.0" prefWidth="850.0">
             <content>
-                <VBox prefHeight="550.0" prefWidth="850.0" alignment="CENTER">
+                <VBox fx:id="reviewContainer" prefHeight="550.0" prefWidth="850.0" alignment="CENTER">
                     <!-- Add reviews dynamically here -->
                 </VBox>
             </content>
