@@ -11,6 +11,8 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.Map;
 
 public class MyReviewSceneController {
 
@@ -19,6 +21,7 @@ public class MyReviewSceneController {
     @FXML
     private VBox reviewContainer;
 
+    DatabaseDriver databaseDriver =  new DatabaseDriver();
 
     @FXML
     private void goBack(ActionEvent event) {
@@ -34,18 +37,48 @@ public class MyReviewSceneController {
         }
     }
 
+
     @FXML
-    private void addReview(String reviewText) {
-        Label reviewLabel = new Label(reviewText);
-        reviewContainer.getChildren().add(reviewLabel);
+    private void addReview(String courseKey, String reviewText) {
+
+        String[] keyParts = courseKey.split(" ");
+        String mnemonic = keyParts[0];
+        String courseId = keyParts[1];
+        String title = keyParts[2];
+
+
+        Label courseLabel = new Label(mnemonic + " " + courseId + " " + title);
+        Label ratingLabel = new Label("Rating: " + reviewText.substring(0, reviewText.indexOf(":")));
+        Label summaryLabel = new Label("Summary: " + reviewText.substring(reviewText.indexOf(":") + 1).trim());
+
+
+        reviewContainer.getChildren().addAll(courseLabel, ratingLabel, summaryLabel);
+
+
+        courseLabel.setStyle("-fx-font-weight: bold;");
     }
+
 
 
     @FXML
     public void initialize() {
-        //fake place holder
-        addReview("This is review 1");
-        addReview("This is review 2");
-        addReview("This is review 3");
+
+        UserSession userSession = UserSession.getInstance();
+        String username = userSession.getUsername();
+
+        try {
+
+            Map<String, Rating> userReviewsMap = databaseDriver.getUserReviewsByCourse(username);
+
+            for (Map.Entry<String, Rating> entry : userReviewsMap.entrySet()) {
+                String courseKey = entry.getKey();
+                String reviewText = entry.getValue().getCommentText();
+                addReview(courseKey, reviewText);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+        }
     }
+
 }

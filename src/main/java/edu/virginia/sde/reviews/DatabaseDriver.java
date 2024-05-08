@@ -2,7 +2,9 @@ package edu.virginia.sde.reviews;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class DatabaseDriver {
 
@@ -221,6 +223,42 @@ return null;
             }
         }
         return -1; // Return -1 if no review ID found for the given parameters
+    }
+
+
+    public List<Rating> getAllUserReviews( String username) throws SQLException {
+        List<Rating> reviewList = new ArrayList<>();
+        String retrieveSql = "SELECT * FROM Reviews WHERE UserName = ?";
+        try (PreparedStatement statement = connection.prepareStatement(retrieveSql)) {
+
+            statement.setString(2, username);
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+                Rating rating = new Rating(rs.getString("Comment"), rs.getInt("Rating"));
+                rating.setTimestamp(rs.getTimestamp("TimeStamp"));
+                reviewList.add(rating);
+
+            }
+        }
+        return reviewList;
+    }
+
+    public Map<String, Rating> getUserReviewsByCourse(String username) throws SQLException {
+        Map<String, Rating> userReviewsMap = new HashMap<>();
+        String retrieveSql = "SELECT r.Comment, r.Rating, c.CourseMnemonic, c.CourseNumber " +
+                "FROM Reviews r " +
+                "JOIN Courses c ON r.CourseID = c.ID " +
+                "WHERE r.UserName = ?";
+        try (PreparedStatement statement = connection.prepareStatement(retrieveSql)) {
+            statement.setString(1, username);
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+                String courseKey = rs.getString("CourseMnemonic") + " " + rs.getInt("CourseNumber");
+                Rating rating = new Rating(rs.getString("Comment"), rs.getInt("Rating"));
+                userReviewsMap.put(courseKey, rating);
+            }
+        }
+        return userReviewsMap;
     }
 
 }
