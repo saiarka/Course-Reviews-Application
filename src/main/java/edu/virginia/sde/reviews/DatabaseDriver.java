@@ -18,7 +18,8 @@ public class DatabaseDriver {
 
     public void connect() throws SQLException {
         if (connection != null && !connection.isClosed()) {
-            throw new IllegalStateException("The connection is already opened");
+//            throw new IllegalStateException("The connection is already opened");
+            return;
         }
         connection = DriverManager.getConnection("jdbc:sqlite:course_reviews.sqlite");
         connection.createStatement().execute("PRAGMA foreign_keys = ON");
@@ -51,7 +52,8 @@ public class DatabaseDriver {
                 "CourseMnemonic TEXT NOT NULL, " +
                 "CourseName TEXT NOT NULL UNIQUE, " +
                 "CourseNumber INTEGER NOT NULL, " +
-                "AverageCourseRating FLOAT)";
+                "AverageCourseRating FLOAT, " +
+                "UNIQUE(CourseMnemonic, CourseNumber))";
         statement.executeUpdate(courseTableSql);
         // Create Ratings table
         String ratingTableSql = "CREATE TABLE IF NOT EXISTS Reviews (" +

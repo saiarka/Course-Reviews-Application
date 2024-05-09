@@ -55,9 +55,13 @@
         </HBox>
 
         <!-- Courses Displayed Section -->
-        <HBox alignment="CENTER" layoutY="140.0">
-           <VBox fx:id="coursesContainer">
-           </VBox>
-        </HBox>
+        <VBox alignment="CENTER" layoutY="140.0" prefWidth="1280.0">
+            <ScrollPane>
+                <content>
+                    <VBox fx:id="coursesContainer" >
+                    </VBox>
+                </content>
+            </ScrollPane>
+        </VBox>
     </children>
 </AnchorPane>
