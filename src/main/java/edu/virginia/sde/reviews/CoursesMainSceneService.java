@@ -8,7 +8,7 @@ public class CoursesMainSceneService{
     public boolean validateMnemonic(String mnemonic)
     {
        if(mnemonic.compareTo("") != 0)  {
-        if(mnemonic.length() > 4) {
+        if(mnemonic.length() > 4 || mnemonic.length() < 2) {
             return false;
         }
        }
@@ -32,4 +32,33 @@ public class CoursesMainSceneService{
         return true;
    }
 
+   public boolean addMnemonicValidate(String mnemonic) {
+       if(mnemonic.compareTo("") == 0) {
+           return false;
+       }
+       if(mnemonic.length() > 4 || mnemonic.length() < 2) {
+           return false;
+       }
+        return true;
+   }
+
+    public boolean addTitleValidate(String title)    {
+       if(title.compareTo("") == 0) {
+          return false;
+       }
+       if(title.length() > 50 || title.isEmpty()) {
+           return false;
+       }
+       return true;
+    }
+
+    public boolean addCourseNumberValidate(String number) {
+        if(number.compareTo("") == 0) {
+            return false;
+        }
+        if(number.length() != 4) {
+            return false;
+        }
+        return true;
+    }
 }

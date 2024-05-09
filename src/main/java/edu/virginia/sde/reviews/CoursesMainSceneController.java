@@ -5,6 +5,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Label;
+import org.hibernate.annotations.processing.SQL;
 
 import java.util.List;
 import java.io.IOException;
@@ -29,6 +30,10 @@ public class CoursesMainSceneController {
     private TextField courseTitleSearched;
     @FXML
     private Label errorLabel;
+    @FXML
+    private Label addErrorLabel;
+    @FXML
+    private Label addSuccessLabel;
 
    public void initalize() {
       DatabaseDriver driver = new DatabaseDriver();
@@ -68,7 +73,7 @@ public class CoursesMainSceneController {
        String courseTitleSearchedText = courseTitleSearched.getText();
        String courseMnemonicSearchedText = courseMnemonicSearched.getText();
        String courseNumberSearchedNum = courseNumberSearched.getText();
-
+        errorLabel.setText("");
        if(service.validateCourseName(courseTitleSearchedText) || service.validateCourseNumber(courseNumberSearchedNum) || service.validateMnemonic(courseMnemonicSearchedText)){
         DatabaseDriver driver = new DatabaseDriver();
         try {
@@ -90,19 +95,31 @@ public class CoursesMainSceneController {
           }
 
         }catch (SQLException e) {
-           //TODO : Add meaningful message in gui for sql exception
-            e.printStackTrace();
+            errorLabel.setText("Failed to load courses");
         }
        }else {
-           //TODO: Add meaningful excepction here shown in gui
-
+            errorLabel.setText("Invalid course parameters entered");
        }
 
 
    }
 
    public void handleAddCourse(){
-
+       String courseMnemonicAdd = courseMnemonic.getText();
+       String courseTitleAdd = courseTitle.getText();
+       String courseNumberAdd = courseNumber.getText();
+       addErrorLabel.setText("");
+       if(service.addMnemonicValidate(courseMnemonicAdd) && service.addTitleValidate(courseTitleAdd) && service.addCourseNumberValidate(courseNumberAdd)) {
+           DatabaseDriver driver = new DatabaseDriver();
+           try {
+               driver.addCourse(courseMnemonicAdd, courseTitleAdd, courseNumberAdd);
+               addSuccessLabel.setText("Course Successfully Added!");
+           }catch (SQLException e) {
+               addErrorLabel.setText("Failed to add course");
+           }
+       }else {
+           addErrorLabel.setText("Invalid course info entered");
+       }
    }
 
 

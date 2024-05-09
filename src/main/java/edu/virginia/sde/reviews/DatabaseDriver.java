@@ -1,5 +1,7 @@
 package edu.virginia.sde.reviews;
 
+import org.hibernate.annotations.processing.SQL;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -305,6 +307,23 @@ return null;
             }
         }
         return userReviewsMap;
+    }
+
+
+    public void addCourse(String mnemonic, String title, String number)  throws SQLException{
+        String insertSql = "INSERT INTO Courses " +
+                "(mnemonic, title, number)" +
+                "VALUES(?, ?, ?)";
+
+        try(PreparedStatement statement = connection.prepareStatement(insertSql)) {
+            statement.setString(1, mnemonic);
+            statement.setString(2, title);
+            statement.setString(3, number);
+            statement.executeUpdate();
+        }catch(SQLException e) {
+            rollback();
+            throw e;
+        }
     }
 
 }

@@ -50,6 +50,8 @@
             <TextField promptText="Course Name" fx:id="courseTitle"></TextField>
             <!-- TODO: Finish add functionality -->
             <Button text="Add" onAction="#handleAddCourse"></Button>
+            <Label fx:id="addErrorLabel" textFill="red"></Label>
+            <Label fx:id="addSuccessLabel" textFill="green"></Label>
         </HBox>
 
         <!-- Courses Displayed Section -->
