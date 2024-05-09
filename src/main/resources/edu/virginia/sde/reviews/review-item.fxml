@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<VBox alignment="CENTER" prefHeight="120.0" prefWidth="850.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="edu.virginia.sde.reviews.ReviewItemController">
+    <children>
+        <Button fx:id="reviewButton" onAction="#handleReviewButtonClick" prefHeight="110.0" prefWidth="800.0">
+            <font>
+                <Font name="Segoe UI Semilight" size="18.0" />
+            </font>
+        </Button>
+    </children>
+</VBox>
