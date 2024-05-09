@@ -182,7 +182,6 @@ public static void setcourseID(int ID){
     public void submitReview(ActionEvent actionEvent) {
 
         try {
-
             int rating = Integer.parseInt(ratingTextField.getText());
             String comment = commentTextArea.getText();
             String user=UserSession.getInstance().getUsername();
