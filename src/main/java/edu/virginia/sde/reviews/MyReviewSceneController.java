@@ -72,8 +72,9 @@ public class MyReviewSceneController {
         String username = userSession.getUsername();
 
         try {
-
+databaseDriver.connect();
             Map<String, Rating> userReviewsMap = databaseDriver.getUserReviewsByCourse(username);
+            databaseDriver.disconnect();
 
             for (Map.Entry<String, Rating> entry : userReviewsMap.entrySet()) {
                 String courseKey = entry.getKey();
