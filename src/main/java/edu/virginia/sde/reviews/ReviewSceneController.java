@@ -205,10 +205,10 @@ public static void setcourseID(int ID){
             SceneCreator sceneCreator = new SceneCreator();
 
             // Get the login/signup scene
-            Scene loginSignupScene = sceneCreator.createScene("login-signup.fxml");
+            Scene search = sceneCreator.createScene("course-search-scene.fxml");
 
             // Set the scene using SceneSwitcher
-            SceneSwitcher.setScene(loginSignupScene);
+            SceneSwitcher.setScene(search);
         } catch (Exception e) {
             e.printStackTrace();
             // Handle any exceptions or errors during scene switching
