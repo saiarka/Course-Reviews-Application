@@ -50,7 +50,7 @@ public class MyReviewSceneController {
 
 
     @FXML
-    private void addReview(String courseKey, String reviewText) {
+    private void addReview(String courseKey, String reviewText, int reviewVal) {
 
         String[] keyParts = courseKey.split(" ");
         String mnemonic = keyParts[0];
@@ -59,8 +59,8 @@ public class MyReviewSceneController {
 
 
         Label courseLabel = new Label(mnemonic + " " + courseId + " " + title);
-        Label ratingLabel = new Label("Rating: " + reviewText.substring(0, reviewText.indexOf(":")));
-        Label summaryLabel = new Label("Summary: " + reviewText.substring(reviewText.indexOf(":") + 1).trim());
+        Label ratingLabel = new Label("Rating: " + reviewVal);
+        Label summaryLabel = new Label("Summary: " + reviewText);
 
 
         //makes it easier to read and separate many reviews hopefully
@@ -87,7 +87,8 @@ databaseDriver.connect();
             for (Map.Entry<String, Rating> entry : userReviewsMap.entrySet()) {
                 String courseKey = entry.getKey();
                 String reviewText = entry.getValue().getCommentText();
-                addReview(courseKey, reviewText);
+                int reviewval=entry.getValue().getRatingNumber();
+                addReview(courseKey, reviewText, reviewval);
             }
         } catch (SQLException e) {
             e.printStackTrace();
