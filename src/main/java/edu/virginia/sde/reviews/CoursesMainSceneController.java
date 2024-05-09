@@ -83,9 +83,9 @@ public class CoursesMainSceneController {
            List<Course> courseList = driver.getSearchedCourseList(courseMnemonicSearchedText, courseTitleSearchedText, courseNumberSearchedNum);
             driver.disconnect();
           coursesContainer.getChildren().clear();
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("course-review-item.fxml"));
           for(Course course: courseList) {
               try {
+                  FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("course-review-item.fxml"));
                   VBox vbox = (VBox) fxmlLoader.load();
 
                   CoursesItemController controller = fxmlLoader.getController();
