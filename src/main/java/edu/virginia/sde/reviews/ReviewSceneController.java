@@ -136,6 +136,7 @@ public static void setcourseID(int ID){
             int userreviewID= databaseDriver.getUserReviewID(courseId, username);
             if(userreviewID!=-1) {
                 databaseDriver.updateReview(userreviewID,updatedrate );
+                databaseDriver.commit();
             }else{
                 showError("You have not left a review to edit!");
             }
@@ -162,11 +163,11 @@ public static void setcourseID(int ID){
             int userreviewID= databaseDriver.getUserReviewID(courseId, username);
             if(userreviewID!=-1) {
                 databaseDriver.deleteReview(userreviewID);
+                databaseDriver.commit();
             }else{
                 showError("You have not left a review to delete!");
             }
             databaseDriver.disconnect();
-
 
                 userRatingLabel.setText("");
                 userCommentLabel.setText("");
@@ -189,6 +190,7 @@ public static void setcourseID(int ID){
             int alreadyreviewed= databaseDriver.getUserReviewID(courseId, user);
             if(alreadyreviewed==-1) {
                 databaseDriver.addReview(courseId, user, newRating);
+                databaseDriver.commit();
             }else{
                 showError("You have already submitted a review for this course!");
             }
@@ -201,21 +203,17 @@ public static void setcourseID(int ID){
 
         }
     }
-
     public void goBack(ActionEvent actionEvent) {
         try {
-
             SceneCreator sceneCreator = new SceneCreator();
 
-            Scene back = sceneCreator.createScene("course-search-scene.fxml");
 
+            Scene back = sceneCreator.createScene("course-search-scene.fxml");
             SceneSwitcher.setScene(back);
         } catch (Exception e) {
             e.printStackTrace();
-
         }
     }
-
     public void showError(String errorMessage) {
         errorLabel.setText(errorMessage);
 
