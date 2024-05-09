@@ -311,18 +311,34 @@ return null;
 
     public void addCourse(String mnemonic, String title, String number)  throws SQLException{
         String insertSql = "INSERT INTO Courses " +
-                "(CourseMnemonic,CourseName,CourseNumber) " +
-                "VALUES(?, ?, ?)";
+                "(CourseMnemonic,CourseName,CourseNumber,AverageCourseRating) " +
+                "VALUES(?, ?, ?,?)";
 
         try(PreparedStatement statement = connection.prepareStatement(insertSql)) {
             statement.setString(1, mnemonic);
             statement.setString(2, title);
             statement.setInt(3, Integer.parseInt(number));
+            statement.setInt(4,0);
+
             statement.executeUpdate();
         }catch(SQLException e) {
             rollback();
             throw e;
         }
+    }
+
+    public int getCourseID(String courseMnemonic, String courseTitle, int courseNumber) throws SQLException {
+        String retrieveSql = "SELECT ID FROM Courses WHERE CourseMnemonic = ? AND CourseName = ? AND CourseNumber = ?";
+        try (PreparedStatement statement = connection.prepareStatement(retrieveSql)) {
+            statement.setString(1, courseMnemonic);
+            statement.setString(2, courseTitle);
+            statement.setInt(3, courseNumber);
+            ResultSet rs = statement.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("ID");
+            }
+        }
+        return -1; // Return -1 if no Course ID found for the given parameters
     }
 
 }

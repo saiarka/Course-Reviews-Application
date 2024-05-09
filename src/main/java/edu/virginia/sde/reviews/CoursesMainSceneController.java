@@ -81,7 +81,7 @@ public class CoursesMainSceneController {
         try {
             driver.connect();
            List<Course> courseList = driver.getSearchedCourseList(courseMnemonicSearchedText, courseTitleSearchedText, courseNumberSearchedNum);
-
+            driver.disconnect();
           coursesContainer.getChildren().clear();
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("course-review-item.fxml"));
           for(Course course: courseList) {
@@ -96,7 +96,7 @@ public class CoursesMainSceneController {
                   e.printStackTrace();
               }
           }
-            driver.disconnect();
+
         }catch (SQLException e) {
             errorLabel.setText("Failed to load courses");
         }
