@@ -42,7 +42,7 @@ public class ReviewSceneController {
 
     private static int courseId;
 
-public void setcourseID(int ID){
+public static void setcourseID(int ID){
     courseId=ID;
 
 }
