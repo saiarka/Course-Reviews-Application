@@ -42,7 +42,7 @@ public class CoursesMainSceneController {
       FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("course-review-item.fxml"));
       try {
         List<Course> courseList = driver.retrieveAllCoursesFromDatabase();
-        coursesContainer.getChildren().clear(); //Potential error here
+        coursesContainer.getChildren().clear();
         for(Course course: courseList) {
            try {
                VBox vbox = (VBox) fxmlLoader.load();
@@ -83,21 +83,16 @@ public class CoursesMainSceneController {
            List<Course> courseList = driver.getSearchedCourseList(courseMnemonicSearchedText, courseTitleSearchedText, courseNumberSearchedNum);
             driver.disconnect();
           coursesContainer.getChildren().clear();
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("course-review-item.fxml"));
           for(Course course: courseList) {
-              try {
-                  FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("course-review-item.fxml"));
-                  VBox vbox = (VBox) fxmlLoader.load();
-
-                  CoursesItemController controller = fxmlLoader.getController();
-                  controller.setCourseItemData(course.getCoursemnemonic(), course.getCoursename(), course.getCoursenumber(), course.getAvgRating());
-                  coursesContainer.getChildren().add(vbox);
-              }catch (IOException e){
-                  //Not sure if this is the right way to deal with this exception
-                  e.printStackTrace();
-              }
+              VBox vbox = (VBox) fxmlLoader.load();
+              CoursesItemController controller = fxmlLoader.getController();
+              controller.setCourseItemData(course.getCoursemnemonic(), course.getCoursename(), course.getCoursenumber(), course.getAvgRating());
+              coursesContainer.getChildren().add(vbox);
+              fxmlLoader = new FXMLLoader(getClass().getResource("course-review-item.fxml"));
           }
 
-        }catch (SQLException e) {
+        }catch (SQLException | IOException e) {
             errorLabel.setText("Failed to load courses");
         }
        }else {
