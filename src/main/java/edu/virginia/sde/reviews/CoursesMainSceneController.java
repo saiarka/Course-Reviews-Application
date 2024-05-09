@@ -120,6 +120,7 @@ public class CoursesMainSceneController {
                driver.disconnect();
            }catch (SQLException e) {
                addErrorLabel.setText("Failed to add course");
+               e.printStackTrace();
            }
        }else {
            addErrorLabel.setText("Invalid course info entered");
