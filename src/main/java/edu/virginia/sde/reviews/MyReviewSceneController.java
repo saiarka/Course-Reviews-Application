@@ -39,17 +39,38 @@ public class MyReviewSceneController {
     }
 
 
+
+
+
+
+
+
+
+
+
+
     @FXML
-    private void addReview(String courseKey, String reviewText) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("review-item.fxml"));
-            VBox reviewItem = loader.load();
-            ReviewItemController controller = loader.getController();
-            controller.setReviewItemData(courseKey, reviewText);
-            reviewContainer.getChildren().add(reviewItem);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    private void addReview(String courseKey, String reviewText, int reviewVal) {
+
+        String[] keyParts = courseKey.split(" ");
+        String mnemonic = keyParts[0];
+        String courseId = keyParts[1];
+        String title = keyParts[2];
+
+
+        Label courseLabel = new Label(mnemonic + " " + courseId + " " + title);
+        Label ratingLabel = new Label("Rating: " + reviewVal);
+        Label summaryLabel = new Label("Summary: " + reviewText);
+
+
+        //makes it easier to read and separate many reviews hopefully
+        Separator separator = new Separator();
+
+
+        reviewContainer.getChildren().addAll(courseLabel, ratingLabel, summaryLabel, separator);
+
+
+        courseLabel.setStyle("-fx-font-weight: bold;");
     }
 
     @FXML
@@ -66,7 +87,8 @@ databaseDriver.connect();
             for (Map.Entry<String, Rating> entry : userReviewsMap.entrySet()) {
                 String courseKey = entry.getKey();
                 String reviewText = entry.getValue().getCommentText();
-                addReview(courseKey, reviewText);
+                int reviewval=entry.getValue().getRatingNumber();
+                addReview(courseKey, reviewText, reviewval);
             }
         } catch (SQLException e) {
             e.printStackTrace();

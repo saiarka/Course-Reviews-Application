@@ -292,7 +292,7 @@ return null;
 
     public Map<String, Rating> getUserReviewsByCourse(String username) throws SQLException {
         Map<String, Rating> userReviewsMap = new HashMap<>();
-        String retrieveSql = "SELECT r.Comment, r.Rating, c.CourseMnemonic, c.CourseNumber " +
+        String retrieveSql = "SELECT r.Comment, r.Rating, c.CourseMnemonic, c.CourseNumber, c.CourseName " +
                 "FROM Reviews r " +
                 "JOIN Courses c ON r.CourseID = c.ID " +
                 "WHERE r.UserName = ?";
@@ -300,7 +300,7 @@ return null;
             statement.setString(1, username);
             ResultSet rs = statement.executeQuery();
             while (rs.next()) {
-                String courseKey = rs.getString("CourseMnemonic") + " " + rs.getInt("CourseNumber");
+                String courseKey = rs.getString("CourseMnemonic") + " " + rs.getInt("CourseNumber") + " " + rs.getString("CourseName");
                 Rating rating = new Rating(rs.getString("Comment"), rs.getInt("Rating"));
                 userReviewsMap.put(courseKey, rating);
             }
