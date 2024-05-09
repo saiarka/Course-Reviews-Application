@@ -3,6 +3,7 @@ package edu.virginia.sde.reviews;
 import javafx.fxml.FXML;
 
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.text.Text;
 
@@ -10,33 +11,35 @@ import javafx.scene.text.Text;
 import java.sql.SQLException;
 
 public class CoursesItemController{
+    String courseMnemonic;
     @FXML
-    private Text courseMnemonic;
+    String courseName;
     @FXML
-    private Text courseName;
+    private int courseNumber;
     @FXML
-    private Text courseNumber;
+    private double courseAvgRating;
     @FXML
-    private Text courseAvgRating;
+    private Button courseButton;
 
     private DatabaseDriver driver= new DatabaseDriver();
 
     public void setCourseItemData(String courseMnemonic, String courseName, int courseNumber, double courseAvgRating){
-        this.courseMnemonic.setText(courseMnemonic);
-        this.courseName.setText(courseName);
-
+        this.courseMnemonic = courseMnemonic;
+        this.courseName = courseName;
         String courseNumberString = Integer.toString(courseNumber);
         String courseAvgRatingString = Double.toString(courseAvgRating);
 
-        this.courseNumber.setText(courseNumberString);
-        this.courseAvgRating.setText(courseAvgRatingString);
+        courseButton.setText(courseMnemonic + " " + courseNumberString + ": " + courseName + "\n" + "Rating: " + courseAvgRatingString);
+
+        this.courseNumber = courseNumber;
+        this.courseAvgRating = courseAvgRating;
     }
 
 
 public int getCourseID() throws SQLException {
-        int coursenum=Integer.parseInt(courseNumber.getText());
+        int coursenum=courseNumber;
         driver.connect();
-        int output= driver.getCourseID(courseMnemonic.getText(),courseName.getText(), coursenum);
+        int output= driver.getCourseID(courseMnemonic,courseName, coursenum);
         driver.disconnect();
         return output;
 }
