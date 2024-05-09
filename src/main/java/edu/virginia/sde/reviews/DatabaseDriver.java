@@ -51,7 +51,7 @@ public class DatabaseDriver {
                 "CourseMnemonic TEXT NOT NULL, " +
                 "CourseName TEXT NOT NULL UNIQUE, " +
                 "CourseNumber INTEGER NOT NULL, " +
-                "AverageCourseRating FLOAT NOT NULL)";
+                "AverageCourseRating FLOAT)";
         statement.executeUpdate(courseTableSql);
         // Create Ratings table
         String ratingTableSql = "CREATE TABLE IF NOT EXISTS Reviews (" +
@@ -311,15 +311,14 @@ return null;
 
     public void addCourse(String mnemonic, String title, String number)  throws SQLException{
         String insertSql = "INSERT INTO Courses " +
-                "(mnemonic, title, number)" +
+                "(CourseMnemonic,CourseName,CourseNumber) " +
                 "VALUES(?, ?, ?)";
 
         try(PreparedStatement statement = connection.prepareStatement(insertSql)) {
             statement.setString(1, mnemonic);
             statement.setString(2, title);
-            statement.setString(3, number);
+            statement.setInt(3, Integer.parseInt(number));
             statement.executeUpdate();
-            commit();
         }catch(SQLException e) {
             rollback();
             throw e;

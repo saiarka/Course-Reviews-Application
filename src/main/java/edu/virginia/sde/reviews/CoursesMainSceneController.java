@@ -35,6 +35,8 @@ public class CoursesMainSceneController {
     @FXML
     private Label addSuccessLabel;
 
+    DatabaseDriver driver = new DatabaseDriver();
+
    public void initalize() {
       DatabaseDriver driver = new DatabaseDriver();
       FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("course-review-item.fxml"));
@@ -76,8 +78,8 @@ public class CoursesMainSceneController {
        String courseNumberSearchedNum = courseNumberSearched.getText();
         errorLabel.setText("");
        if(service.validateCourseName(courseTitleSearchedText) || service.validateCourseNumber(courseNumberSearchedNum) || service.validateMnemonic(courseMnemonicSearchedText)){
-        DatabaseDriver driver = new DatabaseDriver();
         try {
+            driver.connect();
            List<Course> courseList = driver.getSearchedCourseList(courseMnemonicSearchedText, courseTitleSearchedText, courseNumberSearchedNum);
 
           coursesContainer.getChildren().clear();
@@ -94,15 +96,13 @@ public class CoursesMainSceneController {
                   e.printStackTrace();
               }
           }
-
+            driver.disconnect();
         }catch (SQLException e) {
             errorLabel.setText("Failed to load courses");
         }
        }else {
             errorLabel.setText("Invalid course parameters entered");
        }
-
-
    }
 
    public void handleAddCourse(){
@@ -110,11 +110,14 @@ public class CoursesMainSceneController {
        String courseTitleAdd = courseTitle.getText();
        String courseNumberAdd = courseNumber.getText();
        addErrorLabel.setText("");
+
        if(service.addMnemonicValidate(courseMnemonicAdd) && service.addTitleValidate(courseTitleAdd) && service.addCourseNumberValidate(courseNumberAdd)) {
-           DatabaseDriver driver = new DatabaseDriver();
            try {
+               driver.connect();
                driver.addCourse(courseMnemonicAdd, courseTitleAdd, courseNumberAdd);
+               driver.commit();
                addSuccessLabel.setText("Course Successfully Added!");
+               driver.disconnect();
            }catch (SQLException e) {
                addErrorLabel.setText("Failed to add course");
            }
