@@ -61,7 +61,7 @@ public class DatabaseDriver {
                 "Rating INTEGER NOT NULL, " +
                 "TimeStamp TIMESTAMP NOT NULL, " +
                 "Comment TEXT, " +
-                "UserName TEXT NOT NULL UNIQUE, " +
+                "UserName TEXT NOT NULL, " +
                 "CourseID INTEGER NOT NULL, " + // Added CourseID column
                 "FOREIGN KEY (UserName) REFERENCES AccountInfo(Username), " +
                 "FOREIGN KEY (CourseID) REFERENCES Courses(ID))"; // Added foreign ke
