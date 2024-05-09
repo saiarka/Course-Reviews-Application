@@ -4,18 +4,20 @@ import javafx.fxml.FXML;
 
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.text.Text;
+
 
 import java.sql.SQLException;
 
 public class CoursesItemController{
     @FXML
-    private Label courseMnemonic;
+    private Text courseMnemonic;
     @FXML
-    private Label courseName;
+    private Text courseName;
     @FXML
-    private Label courseNumber;
+    private Text courseNumber;
     @FXML
-    private Label courseAvgRating;
+    private Text courseAvgRating;
 
     private DatabaseDriver driver= new DatabaseDriver();
 

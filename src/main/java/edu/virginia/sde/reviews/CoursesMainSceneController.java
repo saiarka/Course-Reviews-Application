@@ -83,13 +83,12 @@ public class CoursesMainSceneController {
            List<Course> courseList = driver.getSearchedCourseList(courseMnemonicSearchedText, courseTitleSearchedText, courseNumberSearchedNum);
             driver.disconnect();
           coursesContainer.getChildren().clear();
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("course-review-item.fxml"));
           for(Course course: courseList) {
-              VBox vbox = (VBox) fxmlLoader.load();
+              FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("course-review-item.fxml"));
+              VBox vbox = fxmlLoader.load();
               CoursesItemController controller = fxmlLoader.getController();
               controller.setCourseItemData(course.getCoursemnemonic(), course.getCoursename(), course.getCoursenumber(), course.getAvgRating());
               coursesContainer.getChildren().add(vbox);
-              fxmlLoader = new FXMLLoader(getClass().getResource("course-review-item.fxml"));
           }
 
         }catch (SQLException | IOException e) {

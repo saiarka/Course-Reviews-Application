@@ -5,18 +5,17 @@
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Text?>
 
 <!-- Course "item"  -->
 <!-- TODO:
        * CHANGE SIZE PARAMETERS SO THAT IT LOOKS GOOD
  -->
 <VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="edu.virginia.sde.reviews.CoursesItemController" prefHeight="50.0" prefWidth="300.0" alignment="CENTER" spacing="5">
-    <children>
     <Button prefWidth="300.0" prefHeight="50.0" onAction="#handleCourseButtonClick">
-            <Label fx:id = "courseMnemonic"></Label>
-            <Label fx:id = "courseName"></Label>
-            <Label fx:id = "courseNumber"></Label>
-            <Label fx:id = "courseAvgRating"></Label>
+            <Text fx:id = "courseMnemonic" textAlignment="CENTER"></Text>
+            <Text fx:id = "courseName" textAlignment="CENTER"></Text>
+            <Text fx:id = "courseNumber" textAlignment="CENTER"></Text>
+            <Text fx:id = "courseAvgRating" textAlignment="CENTER"></Text>
     </Button>
-    </children>
 </VBox>
