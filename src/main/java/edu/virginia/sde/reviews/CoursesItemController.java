@@ -3,38 +3,48 @@ package edu.virginia.sde.reviews;
 import javafx.fxml.FXML;
 
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
 import java.sql.SQLException;
 
 public class CoursesItemController{
+    String courseMnemonic;
     @FXML
-    private Label courseMnemonic;
+    String courseName;
     @FXML
-    private Label courseName;
+    private int courseNumber;
     @FXML
-    private Label courseNumber;
+    private double courseAvgRating;
     @FXML
-    private Label courseAvgRating;
+    private Button courseButton;
 
     private DatabaseDriver driver= new DatabaseDriver();
 
-    public void setCourseItemData(String courseMnemonic, String courseName, int courseNumber, double courseAvgRating){
-        this.courseMnemonic.setText(courseMnemonic);
-        this.courseName.setText(courseName);
-
+    public void setCourseItemData(String courseMnemonic, String courseName, int courseNumber, double avgRating) {
+        this.courseMnemonic = courseMnemonic;
+        this.courseName = courseName;
         String courseNumberString = Integer.toString(courseNumber);
-        String courseAvgRatingString = Double.toString(courseAvgRating);
 
-        this.courseNumber.setText(courseNumberString);
-        this.courseAvgRating.setText(courseAvgRatingString);
+        String avgRatingString;
+        if (avgRating != -1.0) {
+            avgRatingString = String.format("%.2f", avgRating);
+        } else {
+            avgRatingString = ""; // Set to empty string for blank display
+        }
+
+        courseButton.setText(courseMnemonic + " " + courseNumberString + ": " + courseName + "\n" + "Rating: " + avgRatingString);
+
+        this.courseNumber = courseNumber;
+        this.courseAvgRating = avgRating;
     }
 
 
-public int getCourseID() throws SQLException {
-        int coursenum=Integer.parseInt(courseNumber.getText());
+
+    public int getCourseID() throws SQLException {
+        int coursenum=courseNumber;
         driver.connect();
-        int output= driver.getCourseID(courseMnemonic.getText(),courseName.getText(), coursenum);
+        int output= driver.getCourseID(courseMnemonic,courseName, coursenum);
         driver.disconnect();
         return output;
 }

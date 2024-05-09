@@ -39,6 +39,16 @@ public class MyReviewSceneController {
     }
 
 
+
+
+
+
+
+
+
+
+
+
     @FXML
     private void addReview(String courseKey, String reviewText) {
 
@@ -62,8 +72,6 @@ public class MyReviewSceneController {
 
         courseLabel.setStyle("-fx-font-weight: bold;");
     }
-
-
 
     @FXML
     public void initialize() {
