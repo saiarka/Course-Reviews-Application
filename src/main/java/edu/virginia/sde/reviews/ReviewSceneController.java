@@ -57,7 +57,12 @@ public static void setcourseID(int ID){
                 mnemonicLabel.setText(course.getCoursemnemonic());
                 numberLabel.setText(String.valueOf(course.getCoursenumber()));
                 titleLabel.setText(course.getCoursename());
-                averageRatingLabel.setText(String.format("%.2f", course.getAvgRating()));
+                if (course.getAvgRating() > 0.00) {
+                    averageRatingLabel.setText(String.format("%.2f", course.getAvgRating()));
+                } else {
+                    averageRatingLabel.setText(""); // Leave it blank if no reviews available
+                }
+
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -162,10 +167,9 @@ public static void setcourseID(int ID){
             }
             databaseDriver.disconnect();
 
-                // Clear the user review labels or reset them to default values
+
                 userRatingLabel.setText("");
                 userCommentLabel.setText("");
-                // Reload reviews after deletion
                 loadReviews();
 
         } catch (SQLException e) {
@@ -200,17 +204,15 @@ public static void setcourseID(int ID){
 
     public void goBack(ActionEvent actionEvent) {
         try {
-            // Create a new SceneCreator instance
+
             SceneCreator sceneCreator = new SceneCreator();
 
-            // Get the login/signup scene
-            Scene search = sceneCreator.createScene("course-search-scene.fxml");
+            Scene back = sceneCreator.createScene("course-search-scene.fxml");
 
-            // Set the scene using SceneSwitcher
-            SceneSwitcher.setScene(search);
+            SceneSwitcher.setScene(back);
         } catch (Exception e) {
             e.printStackTrace();
-            // Handle any exceptions or errors during scene switching
+
         }
     }
 

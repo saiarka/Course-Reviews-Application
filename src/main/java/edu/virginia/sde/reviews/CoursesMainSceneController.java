@@ -48,7 +48,8 @@ public class CoursesMainSceneController {
                VBox vbox = (VBox) fxmlLoader.load();
 
                CoursesItemController controller = fxmlLoader.getController();
-               controller.setCourseItemData(course.getCoursemnemonic(), course.getCoursename(), course.getCoursenumber(), course.getAvgRating());
+               double avgRating = course.getAvgRating() != 0.0 ? course.getAvgRating() : -1.0; // Use -1.0 as a sentinel value
+               controller.setCourseItemData(course.getCoursemnemonic(), course.getCoursename(), course.getCoursenumber(), avgRating);
                coursesContainer.getChildren().add(vbox);
            }catch (IOException e){
                System.out.println("IO EXCEPTION DURING COURSE MAIN SCREEN INITIALIZATION");
@@ -104,6 +105,7 @@ public class CoursesMainSceneController {
        String courseTitleAdd = courseTitle.getText();
        String courseNumberAdd = courseNumber.getText();
        addErrorLabel.setText("");
+       addSuccessLabel.setText("");
 
        if(service.addMnemonicValidate(courseMnemonicAdd) && service.addTitleValidate(courseTitleAdd) && service.addCourseNumberValidate(courseNumberAdd)) {
            try {

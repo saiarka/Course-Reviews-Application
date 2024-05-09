@@ -41,29 +41,16 @@ public class MyReviewSceneController {
 
     @FXML
     private void addReview(String courseKey, String reviewText) {
-
-        String[] keyParts = courseKey.split(" ");
-        String mnemonic = keyParts[0];
-        String courseId = keyParts[1];
-        String title = keyParts[2];
-
-
-        Label courseLabel = new Label(mnemonic + " " + courseId + " " + title);
-        Label ratingLabel = new Label("Rating: " + reviewText.substring(0, reviewText.indexOf(":")));
-        Label summaryLabel = new Label("Summary: " + reviewText.substring(reviewText.indexOf(":") + 1).trim());
-
-
-        //makes it easier to read and separate many reviews hopefully
-        Separator separator = new Separator();
-
-
-        reviewContainer.getChildren().addAll(courseLabel, ratingLabel, summaryLabel, separator);
-
-
-        courseLabel.setStyle("-fx-font-weight: bold;");
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("review-item.fxml"));
+            VBox reviewItem = loader.load();
+            ReviewItemController controller = loader.getController();
+            controller.setReviewItemData(courseKey, reviewText);
+            reviewContainer.getChildren().add(reviewItem);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
-
-
 
     @FXML
     public void initialize() {
