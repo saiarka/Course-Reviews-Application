@@ -5,13 +5,9 @@
 
 <AnchorPane prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: dae7f3;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.virginia.sde.reviews.ReviewSceneController">
 
-    <!-- Back Button -->
-    <Button layoutX="20.0" layoutY="20.0" onAction="#goBack" text="Back" prefWidth="100" prefHeight="50" />
-
-
     <!-- Course Details Section -->
-    <VBox layoutX="50" layoutY="50" spacing="10">
-        <Label text="Course Details" />
+    <VBox layoutX="50" layoutY="100" prefWidth="200" prefHeight="150" spacing="13" style="-fx-font-size: 14pt;">
+    <Label text="Course Details" />
         <HBox spacing="10">
             <Label text="Mnemonic:" />
             <Label fx:id="mnemonicLabel" />
@@ -30,19 +26,22 @@
         </HBox>
     </VBox>
 
-    <!-- Reviews Section with ScrollPane -->
-    <VBox layoutX="50" layoutY="200" prefHeight="300" prefWidth="248" spacing="10">
+
+    <!-- Reviews Section -->
+    <VBox layoutX="50" layoutY="300" prefHeight="358.0" prefWidth="500.0" spacing="12" style="-fx-font-size: 14pt;">
         <Label text="Reviews" />
-        <ScrollPane prefHeight="300" fitToWidth="true" fitToHeight="true">
+        <ScrollPane prefHeight="320.0" prefWidth="500.0">
             <content>
-                <VBox fx:id="reviewsVBox" spacing="5" />
+                <ListView fx:id="reviewsListView" prefHeight="300.0" prefWidth="500.0" style="-fx-font-size: 11pt;" />
             </content>
         </ScrollPane>
     </VBox>
 
 
+
+
     <!-- Add Review Section -->
-    <VBox layoutX="400" layoutY="50" spacing="10">
+    <VBox layoutX="600" layoutY="100" spacing="13" style="-fx-font-size: 14pt;">
         <Label text="Add Review" />
         <HBox spacing="10">
             <Label text="Rating:" />
@@ -50,13 +49,19 @@
         </HBox>
         <HBox spacing="10">
             <Label text="Comment:" />
-            <TextArea fx:id="commentTextArea" prefHeight="10.0" prefWidth="512.0" promptText="Add a comment" />
+            <ScrollPane prefHeight="100.0" prefWidth="512.0">
+                <content>
+                    <TextArea fx:id="commentTextArea" prefHeight="100.0" prefWidth="512.0" promptText="Add a comment" />
+                </content>
+            </ScrollPane>
         </HBox>
         <Button onAction="#submitReview" text="Submit Review" />
     </VBox>
 
+
     <!-- Delete Review Section -->
-    <VBox layoutX="400" layoutY="200" spacing="10">
+    <!-- Delete Review Section -->
+    <VBox layoutX="600" layoutY="350" spacing="13" style="-fx-font-size: 14pt;">
         <Label text="Your Review" />
         <HBox spacing="10">
             <Label text="Your Rating:" />
@@ -64,11 +69,20 @@
         </HBox>
         <HBox spacing="10">
             <Label text="Your Comment:" />
-            <Label fx:id="userCommentLabel" />
+            <ScrollPane prefHeight="100.0" prefWidth="512.0">
+                <content>
+                    <Label fx:id="userCommentLabel" prefWidth="512.0" wrapText="true" />
+                </content>
+            </ScrollPane>
         </HBox>
         <Button onAction="#editReview" text="Edit Review" />
         <Button onAction="#deleteReview" text="Delete Review" />
     </VBox>
+
+
+    <!-- Back Button -->
+    <Button layoutX="20.0" layoutY="20.0" onAction="#goBack" text="Back" prefWidth="100" prefHeight="50" style="-fx-font-size: 14pt;" />
+
 
     <!-- Error Label -->
     <Label fx:id="errorLabel" layoutX="640.0" layoutY="14.0" prefHeight="59.0" prefWidth="248.0" textFill="red" />
