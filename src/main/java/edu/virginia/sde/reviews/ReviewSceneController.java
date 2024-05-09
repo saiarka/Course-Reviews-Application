@@ -57,7 +57,12 @@ public static void setcourseID(int ID){
                 mnemonicLabel.setText(course.getCoursemnemonic());
                 numberLabel.setText(String.valueOf(course.getCoursenumber()));
                 titleLabel.setText(course.getCoursename());
-                averageRatingLabel.setText(String.format("%.2f", course.getAvgRating()));
+                if (course.getAvgRating() > 0.00) {
+                    averageRatingLabel.setText(String.format("%.2f", course.getAvgRating()));
+                } else {
+                    averageRatingLabel.setText(""); // Leave it blank if no reviews available
+                }
+
             }
         } catch (SQLException e) {
             e.printStackTrace();

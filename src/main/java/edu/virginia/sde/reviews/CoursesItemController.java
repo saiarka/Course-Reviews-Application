@@ -21,20 +21,27 @@ public class CoursesItemController{
 
     private DatabaseDriver driver= new DatabaseDriver();
 
-    public void setCourseItemData(String courseMnemonic, String courseName, int courseNumber, double courseAvgRating){
+    public void setCourseItemData(String courseMnemonic, String courseName, int courseNumber, double avgRating) {
         this.courseMnemonic = courseMnemonic;
         this.courseName = courseName;
         String courseNumberString = Integer.toString(courseNumber);
-        String courseAvgRatingString = Double.toString(courseAvgRating);
 
-        courseButton.setText(courseMnemonic + " " + courseNumberString + ": " + courseName + "\n" + "Rating: " + courseAvgRatingString);
+        String avgRatingString;
+        if (avgRating != -1.0) {
+            avgRatingString = String.format("%.2f", avgRating);
+        } else {
+            avgRatingString = ""; // Set to empty string for blank display
+        }
+
+        courseButton.setText(courseMnemonic + " " + courseNumberString + ": " + courseName + "\n" + "Rating: " + avgRatingString);
 
         this.courseNumber = courseNumber;
-        this.courseAvgRating = courseAvgRating;
+        this.courseAvgRating = avgRating;
     }
 
 
-public int getCourseID() throws SQLException {
+
+    public int getCourseID() throws SQLException {
         int coursenum=courseNumber;
         driver.connect();
         int output= driver.getCourseID(courseMnemonic,courseName, coursenum);
