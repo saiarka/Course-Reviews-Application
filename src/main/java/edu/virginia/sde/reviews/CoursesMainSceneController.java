@@ -63,6 +63,7 @@ public class CoursesMainSceneController {
       SceneSwitcher.setScene(scene);
    }
 
+   // TODO: Might need to change this to send reference over to my-review-screen controller for it to handle
    public void handleMyReviewsButton(){
       SceneCreator sceneCreator = new SceneCreator();
       Scene scene = sceneCreator.createScene("my-review-scene.fxml");
@@ -121,8 +122,6 @@ public class CoursesMainSceneController {
            addErrorLabel.setText("Invalid course info entered");
        }
    }
-
-
 
 
 }

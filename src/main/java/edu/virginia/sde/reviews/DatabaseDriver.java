@@ -108,11 +108,10 @@ public class DatabaseDriver {
         String retrieveSql = "SELECT * FROM Courses ORDER BY CourseMnemonic ASC";
         Statement retrievalStatement = connection.createStatement();
         ResultSet rs = retrievalStatement.executeQuery(retrieveSql);
-
         while(rs.next()) {
-            //TODO: Implement this retrieval set so that it creates a list of courses that can be returned
+            Course tempCourse = new Course(rs.getInt("CourseNumber"), rs.getString("CourseName"), rs.getString("CourseMnemonic"), rs.getDouble("AverageCourseRating"));
+            courseList.add(tempCourse);
         }
-
         return courseList;
     }
 
@@ -320,6 +319,7 @@ return null;
             statement.setString(2, title);
             statement.setString(3, number);
             statement.executeUpdate();
+            commit();
         }catch(SQLException e) {
             rollback();
             throw e;

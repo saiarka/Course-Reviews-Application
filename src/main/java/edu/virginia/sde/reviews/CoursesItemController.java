@@ -2,6 +2,7 @@ package edu.virginia.sde.reviews;
 
 import javafx.fxml.FXML;
 
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 
 public class CoursesItemController{
@@ -24,5 +25,13 @@ public class CoursesItemController{
         this.courseNumber.setText(courseNumberString);
         this.courseAvgRating.setText(courseAvgRatingString);
     }
+
+    public void handleCourseButtonClick(){
+        SceneCreator sceneCreator = new SceneCreator();
+        //TODO: Change this code so that each course click will lead to that course's reviews
+        Scene scene = sceneCreator.createScene("login-signup.fxml");
+        SceneSwitcher.setScene(scene);
+    }
+
 
 }

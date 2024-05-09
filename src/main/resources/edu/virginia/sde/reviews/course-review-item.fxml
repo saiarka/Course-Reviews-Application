@@ -7,12 +7,12 @@
 <?import javafx.scene.layout.*?>
 
 <!-- Course "item"  -->
-<!-- TODO: Not sure about structure here
-       * ALSO CHANGE SIZE PARAMETERS SO THAT IT LOOKS GOOD
+<!-- TODO:
+       * CHANGE SIZE PARAMETERS SO THAT IT LOOKS GOOD
  -->
 <VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="edu.virginia.sde.reviews.CoursesItemController" prefHeight="50.0" prefWidth="300.0" alignment="CENTER" spacing="5">
     <children>
-    <Button prefWidth="300.0" prefHeight="50.0">
+    <Button prefWidth="300.0" prefHeight="50.0" onAction="#handleCourseButtonClick">
             <Label fx:id = "courseMnemonic"></Label>
             <Label fx:id = "courseName"></Label>
             <Label fx:id = "courseNumber"></Label>
