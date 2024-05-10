@@ -14,6 +14,7 @@ public class ReviewItemController {
 
     private String courseKey;
     String courseMnemonic;
+    String courseTitle;
     @FXML
     String courseName;
     @FXML
@@ -23,16 +24,22 @@ public class ReviewItemController {
     @FXML
     private Button courseButton;
 
+    @FXML
+    private int rating;
+
     private DatabaseDriver driver= new DatabaseDriver();
 
-    public void setReviewItemData(String courseKey, String reviewText) {
-        this.courseKey = courseKey;
-        reviewButton.setText(courseKey + ": " + reviewText);
+    public void setReviewItemData(String courseMnemonic, String courseID, String Reviewtext, int rating, String courseTitle) {
+            this.courseMnemonic=courseMnemonic;
+            this.courseTitle=courseTitle;
+            this.courseNumber= Integer.parseInt(courseID);
+        //this.courseKey = courseKey;
+        reviewButton.setText(courseMnemonic + " " + courseID +  " "+ courseTitle +" " + "Review: "+Reviewtext+ " Rating: " + rating);
     }
     public int getCourseID() throws SQLException {
         int coursenum=courseNumber;
         driver.connect();
-        int output= driver.getCourseID(courseMnemonic,courseName, coursenum);
+        int output= driver.getCourseID(courseMnemonic,courseTitle, coursenum);
         driver.disconnect();
         return output;
     }
