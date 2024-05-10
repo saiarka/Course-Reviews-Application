@@ -45,7 +45,7 @@
         <Label text="Add Review" />
         <HBox spacing="10">
             <Label text="Rating:" />
-            <TextField fx:id="ratingTextField" promptText="Enter rating (0-5)" />
+            <TextField fx:id="ratingTextField" promptText="Enter rating (1-5)" />
         </HBox>
         <HBox spacing="10">
             <Label text="Comment:" />

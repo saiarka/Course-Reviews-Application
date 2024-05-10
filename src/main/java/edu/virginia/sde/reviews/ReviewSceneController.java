@@ -200,16 +200,7 @@ public static void setcourseID(int ID){
             }
 
             int rating = Integer.parseInt(ratingtext);
-            try {
 
-                if (rating < 1 || rating > 5) {
-                    showError("Rating must be an integer between 1 and 5");
-                    return;
-                }
-            } catch (NumberFormatException e) {
-                showError("Rating must be an integer between 1 and 5");
-                return;
-            }
 
             String user=UserSession.getInstance().getUsername();
             Rating newRating = new Rating( comment, rating);
