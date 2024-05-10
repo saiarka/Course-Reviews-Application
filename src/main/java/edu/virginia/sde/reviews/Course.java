@@ -1,5 +1,6 @@
 package edu.virginia.sde.reviews;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public class Course {
@@ -9,11 +10,21 @@ public class Course {
     private double avgRating;
     private List<Rating> ratingList;
 
-    public Course(int coursenumber, String coursename, String coursemnemonic, double avgRating, List<Rating> ratingList) {
+    DatabaseDriver driver= new DatabaseDriver();
+
+    public Course(int coursenumber, String coursename, String coursemnemonic, double avgRating, List<Rating> ratingList) throws SQLException {
         this.coursenumber = coursenumber;
         this.coursename = coursename;
         this.coursemnemonic = coursemnemonic;
-        this.avgRating = avgRating;
+        String avgRatingString= calculateAverageRating();
+        try {
+            double avgRatingDouble = Double.parseDouble(avgRatingString);
+            this.avgRating = avgRatingDouble;
+        } catch (NumberFormatException e) {
+            // Handle parsing exception (e.g., set avgRatingDouble to a default value)
+            this.avgRating=avgRating;
+        }
+
         this.ratingList = ratingList;
     }
     public Course(int coursenumber, String coursename, String coursemnemonic, double avgRating) {
@@ -64,19 +75,32 @@ public class Course {
     }
 
 
-    public String calculateAverageRating() {
+
+
+    public String calculateAverageRating() throws SQLException {
+        int courseidnum=getCourseID();
+        driver.connect();
+        List<Double> ratingList= driver.getAllNumberRatingsForCourse(courseidnum);
+
+        driver.disconnect();
         if (ratingList == null || ratingList.isEmpty()) {
             return "";
         }
 
         double sum = 0.0;
-        for (Rating rating : ratingList) {
-            sum += rating.getRatingNumber();
+        for (Double num : ratingList) {
+            sum += num;
         }
 
         double average = sum / ratingList.size();
         return String.format("%.2f", average); // Format the average rating to two decimal places
     }
-
+    public int getCourseID() throws SQLException {
+        int coursenum=coursenumber;
+        driver.connect();
+        int output= driver.getCourseID(coursemnemonic, coursename, coursenum);
+        driver.disconnect();
+        return output;
+    }
 
 }

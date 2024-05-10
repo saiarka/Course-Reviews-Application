@@ -129,6 +129,7 @@ public static void setcourseID(int ID){
             UserSession userSession = UserSession.getInstance();
             String username = userSession.getUsername();
             String ratingText = ratingTextField.getText();
+
             int rating= Integer.parseInt(ratingText);
             Rating updatedrate= new Rating(commentTextArea.getText(),rating );
             databaseDriver.connect();
@@ -227,4 +228,6 @@ public static void setcourseID(int ID){
         errorLabel.setText(errorMessage);
 
     }
+
+
 }
