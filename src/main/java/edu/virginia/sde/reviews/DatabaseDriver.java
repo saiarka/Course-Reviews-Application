@@ -50,10 +50,10 @@ public class DatabaseDriver {
         String courseTableSql = "CREATE TABLE IF NOT EXISTS Courses (" +
                 "ID INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "CourseMnemonic TEXT NOT NULL, " +
-                "CourseName TEXT NOT NULL UNIQUE, " +
+                "CourseName TEXT NOT NULL, " +
                 "CourseNumber INTEGER NOT NULL, " +
                 "AverageCourseRating FLOAT, " +
-                "UNIQUE(CourseMnemonic, CourseNumber))";
+                "UNIQUE(CourseMnemonic, CourseNumber, CourseName))";
         statement.executeUpdate(courseTableSql);
         // Create Ratings table
         String ratingTableSql = "CREATE TABLE IF NOT EXISTS Reviews (" +
