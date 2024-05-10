@@ -9,6 +9,7 @@ import javafx.scene.text.Text;
 
 
 import java.sql.SQLException;
+import java.util.List;
 
 public class CoursesItemController{
     String courseMnemonic;
@@ -23,22 +24,27 @@ public class CoursesItemController{
 
     private DatabaseDriver driver= new DatabaseDriver();
 
-    public void setCourseItemData(String courseMnemonic, String courseName, int courseNumber, double avgRating) {
+    public void setCourseItemData(String courseMnemonic, String courseName, int courseNumber, double avgRating) throws SQLException {
         this.courseMnemonic = courseMnemonic;
         this.courseName = courseName;
+        this.courseNumber = courseNumber;
         String courseNumberString = Integer.toString(courseNumber);
-
-        String avgRatingString;
-        if (avgRating != -1.0) {
-            avgRatingString = String.format("%.2f", avgRating);
-        } else {
-            avgRatingString = ""; // Set to empty string for blank display
+        String avgRatingString= calculateAverageRating();
+        try {
+            double avgRatingDouble = Double.parseDouble(avgRatingString);
+            this.courseAvgRating = avgRatingDouble;
+        } catch (NumberFormatException e) {
+            // Handle parsing exception (e.g., set avgRatingDouble to a default value)
+            avgRatingString = "";
         }
+
+
+
 
         courseButton.setText(courseMnemonic + " " + courseNumberString + ": " + courseName + "\n" + "Rating: " + avgRatingString);
 
-        this.courseNumber = courseNumber;
-        this.courseAvgRating = avgRating;
+
+
     }
 
 
@@ -57,6 +63,26 @@ public class CoursesItemController{
         Scene scene = sceneCreator.createScene("course-review-scene.fxml");
         SceneSwitcher.setScene(scene);
     }
+
+    public String calculateAverageRating() throws SQLException {
+        int courseidnum=getCourseID();
+        driver.connect();
+        List<Double> ratingList= driver.getAllNumberRatingsForCourse(courseidnum);
+
+           driver.disconnect();
+        if (ratingList == null || ratingList.isEmpty()) {
+            return "";
+        }
+
+        double sum = 0.0;
+        for (Double num : ratingList) {
+            sum += num;
+        }
+
+        double average = sum / ratingList.size();
+        return String.format("%.2f", average); // Format the average rating to two decimal places
+    }
+
 
 
 }
