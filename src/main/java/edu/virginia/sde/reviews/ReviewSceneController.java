@@ -182,8 +182,16 @@ public static void setcourseID(int ID){
     public void submitReview(ActionEvent actionEvent) {
 
         try {
-            int rating = Integer.parseInt(ratingTextField.getText());
             String comment = commentTextArea.getText();
+            String ratingtext= ratingTextField.getText();
+            if(comment==""||ratingtext==""){
+                showError("The review text or rating is empty");
+               return;
+            }
+            int rating = Integer.parseInt(ratingTextField.getText());
+
+
+
             String user=UserSession.getInstance().getUsername();
             Rating newRating = new Rating( comment, rating);
             databaseDriver.connect();

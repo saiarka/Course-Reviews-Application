@@ -50,7 +50,7 @@ public class MyReviewSceneController {
 
 
     @FXML
-    private void addReview(String courseKey, String reviewText, int reviewVal) {
+    private void addReview(String courseKey, String reviewText, int reviewVal) throws IOException {
 
         String[] keyParts = courseKey.split(" ");
         String mnemonic = keyParts[0];
@@ -67,7 +67,13 @@ public class MyReviewSceneController {
         Separator separator = new Separator();
 
 
-        reviewContainer.getChildren().addAll(courseLabel, ratingLabel, summaryLabel, separator);
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("review-item.fxml"));
+            VBox vbox = fxmlLoader.load();
+            ReviewItemController controller = fxmlLoader.getController();
+            controller.setReviewItemData(mnemonic, courseId, reviewText, reviewVal,title );
+            reviewContainer.getChildren().add(vbox);
+
+        //reviewContainer.getChildren().addAll(courseLabel, ratingLabel, summaryLabel, separator);
 
 
         courseLabel.setStyle("-fx-font-weight: bold;");
@@ -90,9 +96,13 @@ databaseDriver.connect();
                 int reviewval=entry.getValue().getRatingNumber();
                 addReview(courseKey, reviewText, reviewval);
             }
+
+
         } catch (SQLException e) {
             e.printStackTrace();
 
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 
