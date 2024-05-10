@@ -184,13 +184,32 @@ public static void setcourseID(int ID){
         try {
             String comment = commentTextArea.getText();
             String ratingtext= ratingTextField.getText();
-            if(comment==""||ratingtext==""){
-                showError("The review text or rating is empty");
+            if(ratingtext==""){
+                showError("The review rating is empty");
                return;
             }
-            int rating = Integer.parseInt(ratingTextField.getText());
+            try {
+                int rating = Integer.parseInt(ratingtext);
+                if (rating < 1 || rating > 5) {
+                    showError("Rating must be an integer between 1 and 5");
+                    return;
+                }
+            } catch (NumberFormatException e) {
+                showError("Rating must be an integer between 1 and 5");
+                return;
+            }
 
+            int rating = Integer.parseInt(ratingtext);
+            try {
 
+                if (rating < 1 || rating > 5) {
+                    showError("Rating must be an integer between 1 and 5");
+                    return;
+                }
+            } catch (NumberFormatException e) {
+                showError("Rating must be an integer between 1 and 5");
+                return;
+            }
 
             String user=UserSession.getInstance().getUsername();
             Rating newRating = new Rating( comment, rating);
