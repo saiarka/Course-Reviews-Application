@@ -6,7 +6,7 @@
 <AnchorPane prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: dae7f3;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.virginia.sde.reviews.ReviewSceneController">
 
     <!-- Course Details Section -->
-    <VBox layoutX="50" layoutY="100" prefWidth="200" prefHeight="150" spacing="13" style="-fx-font-size: 14pt;">
+    <VBox layoutX="50" layoutY="100" prefHeight="150" prefWidth="200" spacing="13" style="-fx-font-size: 14pt;">
     <Label text="Course Details" />
         <HBox spacing="10">
             <Label text="Mnemonic:" />
@@ -81,10 +81,10 @@
 
 
     <!-- Back Button -->
-    <Button layoutX="20.0" layoutY="20.0" onAction="#goBack" text="Back" prefWidth="100" prefHeight="50" style="-fx-font-size: 14pt;" />
+    <Button layoutX="20.0" layoutY="20.0" onAction="#goBack" prefHeight="50" prefWidth="100" style="-fx-font-size: 14pt;" text="Back" />
 
 
     <!-- Error Label -->
-    <Label fx:id="errorLabel" layoutX="640.0" layoutY="14.0" prefHeight="59.0" prefWidth="248.0" textFill="red" />
+    <Label fx:id="errorLabel" layoutX="596.0" layoutY="14.0" prefHeight="59.0" prefWidth="616.0" textFill="red" />
 
 </AnchorPane>
