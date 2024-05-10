@@ -342,5 +342,19 @@ return null;
         }
         return -1; // Return -1 if no Course ID found for the given parameters
     }
+    public List<Double> getAllNumberRatingsForCourse(int courseId) throws SQLException {
+        List<Double> numberRatingsList = new ArrayList<>();
+        String retrieveSql = "SELECT Rating FROM Reviews WHERE CourseID = ?";
+        try (PreparedStatement statement = connection.prepareStatement(retrieveSql)) {
+            statement.setInt(1, courseId);
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+                int rating = rs.getInt("Rating");
+                numberRatingsList.add((double) rating);
+            }
+        }
+        return numberRatingsList;
+    }
+
 
 }

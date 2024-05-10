@@ -64,5 +64,19 @@ public class Course {
     }
 
 
+    public String calculateAverageRating() {
+        if (ratingList == null || ratingList.isEmpty()) {
+            return "";
+        }
+
+        double sum = 0.0;
+        for (Rating rating : ratingList) {
+            sum += rating.getRatingNumber();
+        }
+
+        double average = sum / ratingList.size();
+        return String.format("%.2f", average); // Format the average rating to two decimal places
+    }
+
 
 }
