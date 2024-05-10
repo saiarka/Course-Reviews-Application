@@ -36,7 +36,7 @@ List the primary contributions of each author. It is recommended to update this 
 ### Jonathan Varghese
 
 * Primarily contributed to making the login/sign in page, and working on respective controllers.
-* Workd on initial set up of the application.
+* Worked on initial set up of the application.
 * Worked on original formatting of the application and outline of the pages.
 * Helped with serveral debugging errors and flaws in program, to improve it.
   

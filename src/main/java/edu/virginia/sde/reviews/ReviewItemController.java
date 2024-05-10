@@ -7,6 +7,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
 import java.sql.SQLException;
+import java.util.List;
 
 public class ReviewItemController {
     @FXML
@@ -59,6 +60,25 @@ public class ReviewItemController {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public String calculateAverageRating() throws SQLException {
+        int courseidnum=getCourseID();
+        driver.connect();
+        List<Double> ratingList= driver.getAllNumberRatingsForCourse(courseidnum);
+
+        driver.disconnect();
+        if (ratingList == null || ratingList.isEmpty()) {
+            return "";
+        }
+
+        double sum = 0.0;
+        for (Double num : ratingList) {
+            sum += num;
+        }
+
+        double average = sum / ratingList.size();
+        return String.format("%.2f", average); // Format the average rating to two decimal places
     }
 
 
