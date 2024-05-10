@@ -57,10 +57,8 @@
         <!-- Courses Displayed Section -->
         <VBox alignment="CENTER" layoutY="140.0" prefWidth="1280.0">
             <ScrollPane>
-                <content>
-                    <VBox fx:id="coursesContainer" >
-                    </VBox>
-                </content>
+                <VBox fx:id="coursesContainer" >
+                </VBox>
             </ScrollPane>
         </VBox>
     </children>
