@@ -210,6 +210,7 @@ public static void setcourseID(int ID){
             if(alreadyreviewed==-1) {
                 databaseDriver.addReview(courseId, user, newRating);
                 databaseDriver.commit();
+                loadCourseDetails();
                 loadReviews();
             }else{
                 showError("You have already submitted a review for this course!");
