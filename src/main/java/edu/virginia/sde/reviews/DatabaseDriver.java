@@ -52,8 +52,8 @@ public class DatabaseDriver {
                 "CourseMnemonic TEXT NOT NULL, " +
                 "CourseName TEXT NOT NULL, " +
                 "CourseNumber INTEGER NOT NULL, " +
-                "AverageCourseRating FLOAT)";
-//                "UNIQUE(CourseMnemonic, CourseNumber))";
+                "AverageCourseRating FLOAT, " +
+                "UNIQUE(CourseMnemonic, CourseNumber, CourseName))";
         statement.executeUpdate(courseTableSql);
         // Create Ratings table
         String ratingTableSql = "CREATE TABLE IF NOT EXISTS Reviews (" +
