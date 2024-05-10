@@ -62,8 +62,6 @@
 
 
         <!-- Courses Displayed Section -->
-
-
 <!--        <VBox alignment="CENTER" layoutY="140.0" prefWidth="1050.0">-->
 <!--            <ScrollPane fitToWidth="true" fitToHeight="true" vbarPolicy="ALWAYS" hbarPolicy="ALWAYS">-->
 <!--                <content>-->
@@ -79,9 +77,6 @@
                 </VBox>
             </content>
         </ScrollPane>
-
-
-
 
     </children>
 </AnchorPane>
