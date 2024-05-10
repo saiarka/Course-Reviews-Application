@@ -201,16 +201,7 @@ public static void setcourseID(int ID){
             }
 
             int rating = Integer.parseInt(ratingtext);
-            try {
 
-                if (rating < 1 || rating > 5) {
-                    showError("Rating must be an integer between 1 and 5");
-                    return;
-                }
-            } catch (NumberFormatException e) {
-                showError("Rating must be an integer between 1 and 5");
-                return;
-            }
 
             String user=UserSession.getInstance().getUsername();
             Rating newRating = new Rating( comment, rating);
@@ -219,6 +210,7 @@ public static void setcourseID(int ID){
             if(alreadyreviewed==-1) {
                 databaseDriver.addReview(courseId, user, newRating);
                 databaseDriver.commit();
+                loadCourseDetails();
                 loadReviews();
             }else{
                 showError("You have already submitted a review for this course!");
